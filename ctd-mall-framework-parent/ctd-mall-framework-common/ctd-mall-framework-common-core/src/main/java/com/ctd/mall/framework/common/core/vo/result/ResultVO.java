@@ -1,4 +1,4 @@
-package com.ctd.framework.web.vo.result;
+package com.ctd.mall.framework.common.core.vo.result;
 
 import com.ctd.mall.framework.common.core.enums.code.CodeEnum;
 

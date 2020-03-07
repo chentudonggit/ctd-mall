@@ -1,0 +1,66 @@
+package com.ctd.mall.framework.auth.config.store;
+
+import com.ctd.mall.framework.auth.enums.token.TokenStoreType;
+import com.ctd.mall.framework.auth.properties.TokenStoreProperties;
+import com.ctd.mall.framework.auth.store.db.AuthDbTokenStore;
+import com.ctd.mall.framework.auth.store.jwt.AuthJwtTokenStore;
+import com.ctd.mall.framework.auth.store.jwt.ResJwtTokenStore;
+import com.ctd.mall.framework.auth.store.redis.AuthRedisTokenStore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+/**
+ * TokenStoreConfig
+ *
+ * @author chentudong
+ * @date 2020/3/7 20:52
+ * @since 1.0
+ */
+@Configuration
+@EnableConfigurationProperties(TokenStoreProperties.class)
+public class TokenStoreConfig
+{
+    private final TokenStoreProperties tokenStoreProperties;
+    private final AuthDbTokenStore authDbTokenStore;
+    private final AuthRedisTokenStore authRedisTokenStore;
+    private final AuthJwtTokenStore authJwtTokenStore;
+    private final ResJwtTokenStore resJwtTokenStore;
+    private final JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    public TokenStoreConfig(TokenStoreProperties tokenStoreProperties,
+                            AuthDbTokenStore authDbTokenStore,
+                            AuthRedisTokenStore authRedisTokenStore,
+                            AuthJwtTokenStore authJwtTokenStore,
+                            ResJwtTokenStore resJwtTokenStore,
+                            JwtAccessTokenConverter jwtAccessTokenConverter)
+    {
+        this.tokenStoreProperties = tokenStoreProperties;
+        this.authDbTokenStore = authDbTokenStore;
+        this.authRedisTokenStore = authRedisTokenStore;
+        this.authJwtTokenStore = authJwtTokenStore;
+        this.resJwtTokenStore = resJwtTokenStore;
+        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(TokenStore.class)
+    public TokenStore tokenStore()
+    {
+        TokenStoreType type = tokenStoreProperties.getType();
+        if (TokenStoreType.jwtRsa.equals(type))
+        {
+            return resJwtTokenStore.tokenStore(jwtAccessTokenConverter);
+        } else if (TokenStoreType.db.equals(type))
+        {
+            authDbTokenStore.tokenStore();
+        } else if (TokenStoreType.jwt.equals(type))
+        {
+            return authJwtTokenStore.tokenStore(jwtAccessTokenConverter);
+        }
+        return authRedisTokenStore.tokenStore();
+    }
+}

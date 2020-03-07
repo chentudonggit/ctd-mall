@@ -17,6 +17,11 @@
         <module>ctd-mall-framework-common</module>
         <module>ctd-mall-framework-auth-starter</module>
         <module>ctd-mall-framework-web-starter</module>
+        <module>ctd-mall-framework-redis-starter</module>
+        <module>ctd-mall-framework.cloud-starter</module>
+        <module>ctd-mall-framework-mysql-starter</module>
+        <module>ctd-mall-framework-data-jpa-starter</module>
+        <module>ctd-mall-framework-mybatis-plus-starter</module>
     </modules>
 
     <properties>
@@ -27,6 +32,8 @@
         <spring-cloud-dependencies.version>Greenwich.SR3</spring-cloud-dependencies.version>
         <servlet-api.version>4.0.1</servlet-api.version>
         <reactor.version>3.3.0.RELEASE</reactor.version>
+        <mysql.version>5.1.41</mysql.version>
+        <mybatis-plus-boot-starter.version>3.1.2</mybatis-plus-boot-starter.version>
     </properties>
 
     <dependencyManagement>
@@ -72,6 +79,16 @@
                 <version>${spring-cloud-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

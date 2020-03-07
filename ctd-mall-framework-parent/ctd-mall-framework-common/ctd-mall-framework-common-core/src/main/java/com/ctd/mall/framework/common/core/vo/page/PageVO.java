@@ -1,4 +1,4 @@
-package com.ctd.framework.web.vo.page;
+package com.ctd.mall.framework.common.core.vo.page;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

@@ -1,8 +1,8 @@
 package com.ctd.framework.web.vo.response;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ctd.framework.web.vo.page.PageVO;
-import com.ctd.framework.web.vo.result.ResultVO;
+import com.ctd.mall.framework.common.core.vo.page.PageVO;
+import com.ctd.mall.framework.common.core.vo.result.ResultVO;
 import com.ctd.mall.framework.common.core.web.result.code.ResultCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -80,6 +80,7 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      * @since 1.0
      */
     private static final String KEY_SIZE = "size";
+
     public static void responseWriter(ObjectMapper objectMapper, HttpServletResponse response, String msg, int httpStatus) throws IOException
     {
         responseWrite(objectMapper, response, ResultVO.succeedWith(null, httpStatus, msg));
@@ -142,7 +143,7 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      * code
      *
      * @param resultCode resultCode
-     * @return Response
+     * @return ResponseVO
      * @since 1.0
      */
     public static ResponseVO code(ResultCode resultCode)
@@ -154,7 +155,7 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      * data
      *
      * @param data data
-     * @return Response
+     * @return ResponseVO
      * @since 1.0
      */
     public static ResponseVO data(Object data)
@@ -169,7 +170,7 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      * Response
      *
      * @param page page
-     * @return Response
+     * @return ResponseVO
      * @since 1.0
      */
     public static ResponseVO data(PageVO page)
@@ -191,7 +192,7 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      * 增删改有可能会失败
      *
      * @param row 改变数据库的记录数量
-     * @return Response
+     * @return ResponseVO
      * @since 1.0
      */
     public static ResponseVO row(long row)
@@ -213,7 +214,7 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      * successfulMessage
      *
      * @param message message
-     * @return Response
+     * @return ResponseVO
      * @since 1.0
      */
     public ResponseVO successfulMessage(String message)
@@ -230,7 +231,7 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      * errorMessage
      *
      * @param message message
-     * @return Response
+     * @return ResponseVO
      * @since 1.0
      */
     public ResponseVO errorMessage(String message)
@@ -247,7 +248,7 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      * 报错信息
      *
      * @param message message
-     * @return Response
+     * @return ResponseVO
      * @since 1.0
      */
     public ResponseVO failure(String message)
@@ -263,7 +264,7 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      *
      * @param code    code
      * @param message message
-     * @return Response
+     * @return ResponseVO
      */
     public ResponseVO failure(Integer code, String message)
     {
@@ -278,7 +279,7 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      *
      * @param key   key
      * @param value value
-     * @return Response
+     * @return ResponseVO
      * @since 1.0
      */
     public ResponseVO addAttribute(String key, Object value)

@@ -4,6 +4,9 @@ import com.ctd.mall.framework.common.core.exception.InternalException;
 import com.ctd.mall.framework.common.core.exception.UnifiedException;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.reflect.Array;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  * @date 2020/3/7 10:46
  * @since 1.0
  */
-public class AssertUtils
+public final class AssertUtils
 {
     private AssertUtils()
     {
@@ -56,7 +59,34 @@ public class AssertUtils
      */
     public static boolean isNull(Object obj)
     {
-        return (Objects.isNull(obj) || StringUtils.isBlank(obj.toString()));
+        return !nonNull(obj);
+    }
+
+    /**
+     * 判断是否为空 size = 0 视为空
+     *
+     * @param obj obj
+     * @return boolean
+     */
+    public static boolean nonNull(Object obj)
+    {
+        if (Objects.nonNull(obj))
+        {
+            if (obj instanceof String)
+            {
+                return StringUtils.isNotBlank(obj.toString());
+            } else if (obj instanceof Collection)
+            {
+                return !((Collection) obj).isEmpty();
+            } else if (obj instanceof Map)
+            {
+                return !((Map) obj).isEmpty();
+            } else if (obj.getClass().isArray())
+            {
+                return Array.getLength(obj) > 0;
+            }
+        }
+        return false;
     }
 
     /**
