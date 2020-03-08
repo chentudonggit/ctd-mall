@@ -23,12 +23,17 @@
         </dependency>
         <dependency>
             <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-micro-service-auth-api</artifactId>
+            <artifactId>ctd-mall-framework-redis-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-redis-starter</artifactId>
+            <artifactId>ctd-mall-framework-web-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ctd.mall</groupId>
+            <artifactId>ctd-mall-micro-service-user-client</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

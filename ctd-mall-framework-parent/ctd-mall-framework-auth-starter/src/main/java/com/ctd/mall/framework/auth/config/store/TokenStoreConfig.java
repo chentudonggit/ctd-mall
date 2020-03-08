@@ -6,6 +6,7 @@ import com.ctd.mall.framework.auth.store.db.AuthDbTokenStore;
 import com.ctd.mall.framework.auth.store.jwt.AuthJwtTokenStore;
 import com.ctd.mall.framework.auth.store.jwt.ResJwtTokenStore;
 import com.ctd.mall.framework.auth.store.redis.AuthRedisTokenStore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,22 +25,21 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 @EnableConfigurationProperties(TokenStoreProperties.class)
 public class TokenStoreConfig
 {
+    @Autowired(required = false)
+    private AuthDbTokenStore authDbTokenStore;
     private final TokenStoreProperties tokenStoreProperties;
-    private final AuthDbTokenStore authDbTokenStore;
     private final AuthRedisTokenStore authRedisTokenStore;
     private final AuthJwtTokenStore authJwtTokenStore;
     private final ResJwtTokenStore resJwtTokenStore;
     private final JwtAccessTokenConverter jwtAccessTokenConverter;
 
     public TokenStoreConfig(TokenStoreProperties tokenStoreProperties,
-                            AuthDbTokenStore authDbTokenStore,
                             AuthRedisTokenStore authRedisTokenStore,
                             AuthJwtTokenStore authJwtTokenStore,
                             ResJwtTokenStore resJwtTokenStore,
                             JwtAccessTokenConverter jwtAccessTokenConverter)
     {
         this.tokenStoreProperties = tokenStoreProperties;
-        this.authDbTokenStore = authDbTokenStore;
         this.authRedisTokenStore = authRedisTokenStore;
         this.authJwtTokenStore = authJwtTokenStore;
         this.resJwtTokenStore = resJwtTokenStore;

@@ -1,0 +1,157 @@
+server:
+  port: 40650
+  servlet:
+    session:
+      cookie:
+        name: OAUTH2SESSION
+
+spring:
+  application:
+    name: ctd-mall-gateway-server
+
+  main:
+    allow-bean-definition-overriding: true
+
+  profiles:
+    active: production
+
+  data:
+    jpa:
+      repositories:
+        enabled: true
+
+logging:
+  config: classpath:logback-spring.xml
+
+---
+spring:
+  profiles: production
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+          enabled: true
+      routes:
+        - id: auth
+          uri: lb://ctd-mall-auth-server
+          predicates:
+            - Path=/authenticate/**
+          filters:
+            - StripPrefix=1
+            - PreserveHostHeader
+        - id: auth-login-page
+          uri: lb://ctd-mall-auth-server
+          predicates:
+            - Path=/login.html
+          filters:
+            - PreserveHostHeader
+        - id: auth-login-process
+          uri: lb://ctd-mall-auth-server
+          predicates:
+            - Path=/user/login
+          filters:
+            - PreserveHostHeader
+        - id: auth-login-token
+          uri: lb://ctd-mall-auth-server
+          predicates:
+            - Path=/oauth/token
+          filters:
+            - PreserveHostHeader
+        - id: auth-login-authorize
+          uri: lb://ctd-mall-auth-server
+          predicates:
+            - Path=/oauth/authorize
+          filters:
+            - PreserveHostHeader
+        - id: auth-check-process
+          uri: lb://ctd-mall-auth-server
+          predicates:
+            - Path=/oauth/check_token
+          filters:
+            - PreserveHostHeader
+        - id: user
+          uri: lb://ctd-mall-auth-server
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
+
+  redis:
+    host: 192.168.1.107
+    port: 6379
+    password: hmkj1936
+
+eureka:
+  instance:
+    hostname: 192.168.1.107 #172.16.146.183
+    leaseRenewalIntervalInSeconds: 15
+    leaseExpirationDurationInSeconds: 45
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://chentd:ctd1992@${eureka.instance.hostname:localhost}:19820/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+    healthcheck:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+ctd:
+  oauth2:
+    token:
+      store:
+        type: redis
+
+  security:
+    ignore:
+      # 忽略认证的地址
+      urls: >
+        /authenticate/validate/**,
+        /authenticate/oauth/**,
+        /authenticate/css/**,
+        /authenticate/images/**,
+        /authenticate/js/**,
+        /api-user/users-anon/**,
+        /login.html,
+        /user/login
+
+    auth:
+      urlPermission:
+        #是否开启url级别权限
+        enable: false
+        #配置只进行登录认证，不进行url权限认证的api
+        ignore-urls: >
+          /user/menus/current,
+          /user/users/current,
+          /log/requestStat
+        #白名单
+        include-client-ids:
+          - webApp
+      renew:
+        #是否开启token自动续签（目前只有redis实现）
+        enable: true
+        #白名单
+        include-client-ids:
+          - webApp
+  gateway:
+    #网关动态路由
+    dynamic-route:
+      enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000

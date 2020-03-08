@@ -85,6 +85,7 @@ public final class AssertUtils
             {
                 return Array.getLength(obj) > 0;
             }
+            return true;
         }
         return false;
     }

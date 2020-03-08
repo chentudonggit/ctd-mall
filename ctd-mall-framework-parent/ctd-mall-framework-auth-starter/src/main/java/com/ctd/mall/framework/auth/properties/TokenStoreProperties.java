@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2020/3/7 20:59
  * @since 1.0
  */
-@ConfigurationProperties(prefix = "ctd.token.store")
+@ConfigurationProperties(prefix = "ctd.oauth2.token.store")
 public class TokenStoreProperties
 {
     /**

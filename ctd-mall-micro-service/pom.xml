@@ -12,5 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>ctd-mall-micro-service-auth</module>
+        <module>ctd-mall-micro-service-user</module>
+        <module>ctd-mall-micro-service-gateway</module>
     </modules>
 </project>

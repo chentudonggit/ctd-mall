@@ -13,7 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-web-starter</artifactId>
+            <artifactId>ctd-mall-framework-common-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!-- SpringCloud通过http协议调用其他服务的数据，feign相当于HttpClient + Ribbon -->

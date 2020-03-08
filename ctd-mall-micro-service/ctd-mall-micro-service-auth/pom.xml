@@ -16,6 +16,5 @@
         <module>ctd-mall-micro-service-auth-consumer</module>
         <module>ctd-mall-micro-service-auth-provider</module>
         <module>ctd-mall-micro-service-auth-client</module>
-        <module>ctd-mall-micro-service-auth-api</module>
     </modules>
 </project>

@@ -1,0 +1,70 @@
+server:
+  port: 40550
+  servlet:
+    session:
+      cookie:
+        name: OAUTH2SESSION
+
+spring:
+  application:
+    name: ctd-mall-user-server
+
+  main:
+    allow-bean-definition-overriding: true
+
+  profiles:
+    active: production
+
+  data:
+    jpa:
+      repositories:
+        enabled: true
+
+logging:
+  config: classpath:logback-spring.xml
+
+---
+spring:
+  profiles: production
+  datasource:
+    url: jdbc:mysql://192.168.1.107:3306/mall-user?characterEncoding=utf8&autoReconnect=true&useUnicode=true&useSSL=false
+    username: root
+    password: hm159357
+#    url: jdbc:mysql://iot.ghome.ink:5200/oauth-center?characterEncoding=utf8&autoReconnect=true&useUnicode=true&useSSL=false
+#    username: root
+#    password: smartplaything5200
+    hikari:
+      auto-commit: false
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      #ddl-auto: none
+
+    properties:
+      hibernate:
+        format_sql: true
+
+eureka:
+  instance:
+    hostname: 192.168.1.107 #172.16.146.183
+    leaseRenewalIntervalInSeconds: 15
+    leaseExpirationDurationInSeconds: 45
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://chentd:ctd1992@${eureka.instance.hostname:localhost}:19820/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+    healthcheck:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
