@@ -1,5 +1,6 @@
 package com.ctd.mall.micro.service.user.domain.user;
 
+import com.ctd.mall.framework.common.core.enums.status.StatusEnum;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
@@ -87,16 +88,23 @@ public class User implements Serializable
     private String openId;
 
     /**
+     * 状态
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", columnDefinition = "varchar(15) default 'Enable' ")
+    private StatusEnum status;
+
+    /**
      * createTime
      */
     @Column(name = "create_time")
-    protected Date createTime;
+    private Date createTime;
 
     /**
      * updateTime
      */
     @Column(name = "update_time")
-    protected Date updateTime;
+    private Date updateTime;
 
     public String getId()
     {
@@ -196,6 +204,16 @@ public class User implements Serializable
     public void setOpenId(String openId)
     {
         this.openId = openId;
+    }
+
+    public StatusEnum getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status)
+    {
+        this.status = status;
     }
 
     public Date getCreateTime()

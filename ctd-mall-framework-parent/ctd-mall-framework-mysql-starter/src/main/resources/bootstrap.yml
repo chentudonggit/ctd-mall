@@ -13,5 +13,8 @@ spring:
       login-timeout: 5
     driver-class-name: com.mysql.jdbc.Driver
 
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
   transaction:
     rollback-on-commit-failure: true
