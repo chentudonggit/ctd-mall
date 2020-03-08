@@ -86,8 +86,8 @@ public class UserVO implements Serializable
     /**
      * roleId
      */
-    @JSONField(name = "role_id")
-    private String roleId;
+    @JSONField(name = "role_ids")
+    private List<String> roleIds;
 
     /**
      * oldPassword
@@ -211,14 +211,14 @@ public class UserVO implements Serializable
         this.roles = roles;
     }
 
-    public String getRoleId()
+    public List<String> getRoleIds()
     {
-        return roleId;
+        return roleIds;
     }
 
-    public void setRoleId(String roleId)
+    public void setRoleIds(List<String> roleIds)
     {
-        this.roleId = roleId;
+        this.roleIds = roleIds;
     }
 
     public String getOldPassword()
@@ -256,7 +256,7 @@ public class UserVO implements Serializable
                 ", type='" + type + '\'' +
                 ", openId='" + openId + '\'' +
                 ", roles=" + roles +
-                ", roleId='" + roleId + '\'' +
+                ", roleIds='" + roleIds + '\'' +
                 ", oldPassword='" + oldPassword + '\'' +
                 ", newPassword='" + newPassword + '\'' +
                 '}';

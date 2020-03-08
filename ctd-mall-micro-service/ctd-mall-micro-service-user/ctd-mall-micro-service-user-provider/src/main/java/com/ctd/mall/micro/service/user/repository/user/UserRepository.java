@@ -19,4 +19,20 @@ public interface UserRepository extends JpaRepository<User, String>
      * @return User
      */
     User findByOpenId(String openId);
+
+    /**
+     * 手机号获取用户
+     *
+     * @param mobile mobile
+     * @return User
+     */
+    User findByMobile(String mobile);
+
+    /**
+     * 用户名获取用户
+     *
+     * @param username username
+     * @return User
+     */
+    User findByUsername(String username);
 }

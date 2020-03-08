@@ -1,5 +1,6 @@
 package com.ctd.mall.micro.service.user.service.user;
 
+import com.ctd.mall.framework.common.core.vo.user.UserVO;
 import com.ctd.mall.framework.common.core.vo.user.login.LoginUserVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("userService")
 public interface UserService
 {
+    /**
+     * 保存用户
+     *
+     * @param id          id
+     * @param username    username
+     * @param password    password
+     * @param nickName    nickName
+     * @param headImgUrl  headImgUrl
+     * @param mobile      mobile
+     * @param sex         sex
+     * @param enabled     enabled
+     * @param type        type
+     * @param openId      openId
+     * @param roleIds     roleIds
+     * @param oldPassword oldPassword
+     * @return UserVO
+     */
+    @RequestMapping("save")
+    UserVO save(@RequestParam("id") String id,
+                @RequestParam("username") String username,
+                @RequestParam("password") String password,
+                @RequestParam("nickName") String nickName,
+                @RequestParam("headImgUrl") String headImgUrl,
+                @RequestParam("mobile") String mobile,
+                @RequestParam("sex") Integer sex,
+                @RequestParam("enabled") Boolean enabled,
+                @RequestParam("type") String type,
+                @RequestParam("openId") String openId,
+                @RequestParam("roleIds") String[] roleIds,
+                @RequestParam("oldPassword") String oldPassword);
+
     /**
      * findByOpenId
      *
