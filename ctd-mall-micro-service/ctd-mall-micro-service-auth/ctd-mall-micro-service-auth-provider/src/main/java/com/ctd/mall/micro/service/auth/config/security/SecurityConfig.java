@@ -1,7 +1,7 @@
 package com.ctd.mall.micro.service.auth.config.security;
 
-import com.ctd.mall.framework.auth.config.security.password.DefaultPasswordConfig;
 import com.ctd.mall.framework.auth.constant.security.SecurityConstants;
+import com.ctd.mall.framework.common.core.config.password.security.DefaultPasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

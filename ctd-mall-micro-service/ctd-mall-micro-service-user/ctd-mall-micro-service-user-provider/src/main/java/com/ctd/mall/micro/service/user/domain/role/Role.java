@@ -70,6 +70,7 @@ public class Role implements Serializable
     @Column(name = "update_time")
     private Date updateTime;
 
+
     public String getId()
     {
         return id;

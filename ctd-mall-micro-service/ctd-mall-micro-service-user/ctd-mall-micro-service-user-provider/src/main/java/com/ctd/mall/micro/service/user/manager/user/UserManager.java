@@ -171,8 +171,7 @@ public class UserManager
     private void existenceMobile(String id, String mobile)
     {
         AssertUtils.isNullToUser(mobile, "请输入手机号");
-        User user = userRepository.findByMobile(mobile);
-        existence(id, mobile, user);
+        existence(id, mobile, userRepository.findByMobile(mobile));
     }
 
     /**
@@ -184,8 +183,7 @@ public class UserManager
     private void existenceUsername(String id, String username)
     {
         AssertUtils.isNullToUser(username, "请输入用户名");
-        User user = userRepository.findByUsername(username);
-        existence(id, username, user);
+        existence(id, username, userRepository.findByUsername(username));
     }
 
     /**
