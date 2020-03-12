@@ -14,4 +14,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, String>
 {
+    /**
+     * 名称查找
+     *
+     * @param name name
+     * @return Menu
+     */
+    Menu findByName(String name);
 }
