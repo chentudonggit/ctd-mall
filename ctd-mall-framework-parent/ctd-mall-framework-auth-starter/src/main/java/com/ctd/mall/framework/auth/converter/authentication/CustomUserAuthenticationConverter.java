@@ -1,7 +1,7 @@
 package com.ctd.mall.framework.auth.converter.authentication;
 
 import com.ctd.mall.framework.common.core.exception.InternalException;
-import com.ctd.mall.framework.common.core.utils.ParamUtils;
+import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

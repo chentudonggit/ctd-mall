@@ -2,6 +2,7 @@ package com.ctd.mall.micro.service.user.manager.user;
 
 import com.ctd.mall.framework.common.core.bean.BeanHelper;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
+import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
 import com.ctd.mall.framework.common.core.vo.user.login.LoginUserVO;
 import com.ctd.mall.micro.service.user.domain.user.User;
 import com.ctd.mall.micro.service.user.manager.password.PassWordManager;
@@ -96,36 +97,18 @@ public class UserManager
         {
             user.setPassword(passWordManager.encode(password));
         }
-        user.setUsername(returnParam(user.getUsername(), username));
-        user.setNickname(returnParam(user.getNickname(), nickName));
-        user.setSex(returnParam(user.getSex(), sex));
-        user.setType(returnParam(user.getType(), type));
-        user.setOpenId(returnParam(user.getOpenId(), openId));
-        user.setHeadImgUrl(returnParam(user.getHeadImgUrl(), headImgUrl));
-        user.setMobile(returnParam(user.getMobile(), mobile));
-        user.setEnabled(returnParam(user.getEnabled(), enabled));
+        user.setUsername(ParamUtils.returnParam(user.getUsername(), username));
+        user.setNickname(ParamUtils.returnParam(user.getNickname(), nickName));
+        user.setSex(ParamUtils.returnParam(user.getSex(), sex));
+        user.setType(ParamUtils.returnParam(user.getType(), type));
+        user.setOpenId(ParamUtils.returnParam(user.getOpenId(), openId));
+        user.setHeadImgUrl(ParamUtils.returnParam(user.getHeadImgUrl(), headImgUrl));
+        user.setMobile(ParamUtils.returnParam(user.getMobile(), mobile));
+        user.setEnabled(ParamUtils.returnParam(user.getEnabled(), enabled));
         user.setUpdateTime(new Date());
         return userRepository.save(user);
     }
 
-    /**
-     * 判断是否输入新值
-     *
-     * @param param    param
-     * @param newParam newParam
-     * @param <T>      <T>
-     * @return T
-     */
-    private <T> T returnParam(T param, T newParam)
-    {
-        if (Objects.nonNull(newParam))
-        {
-            return newParam;
-        } else
-        {
-            return param;
-        }
-    }
 
     /**
      * 获取用户

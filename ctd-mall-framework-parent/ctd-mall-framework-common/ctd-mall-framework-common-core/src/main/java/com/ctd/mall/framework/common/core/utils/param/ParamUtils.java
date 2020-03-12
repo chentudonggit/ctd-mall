@@ -1,9 +1,10 @@
-package com.ctd.mall.framework.common.core.utils;
+package com.ctd.mall.framework.common.core.utils.param;
 
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * ParamUtils
@@ -34,5 +35,24 @@ public final class ParamUtils
             return (T) map.get(key);
         }
         return null;
+    }
+
+    /**
+     * 判断是否输入新值
+     *
+     * @param param    param
+     * @param newParam newParam
+     * @param <T>      <T>
+     * @return T
+     */
+    public static <T> T returnParam(T param, T newParam)
+    {
+        if (Objects.nonNull(newParam))
+        {
+            return newParam;
+        } else
+        {
+            return param;
+        }
     }
 }
