@@ -6,6 +6,7 @@ import com.ctd.mall.framework.auth.store.db.AuthDbTokenStore;
 import com.ctd.mall.framework.auth.store.jwt.AuthJwtTokenStore;
 import com.ctd.mall.framework.auth.store.jwt.ResJwtTokenStore;
 import com.ctd.mall.framework.auth.store.redis.AuthRedisTokenStore;
+import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -56,6 +57,7 @@ public class TokenStoreConfig
             return resJwtTokenStore.tokenStore(jwtAccessTokenConverter);
         } else if (TokenStoreType.db.equals(type))
         {
+            AssertUtils.isNull(authDbTokenStore, "token:store:type：db，请配置数据库。");
             authDbTokenStore.tokenStore();
         } else if (TokenStoreType.jwt.equals(type))
         {
