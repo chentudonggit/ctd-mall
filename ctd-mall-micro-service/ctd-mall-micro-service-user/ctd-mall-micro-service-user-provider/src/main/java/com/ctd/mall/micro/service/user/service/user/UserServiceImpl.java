@@ -2,10 +2,10 @@ package com.ctd.mall.micro.service.user.service.user;
 
 import com.ctd.mall.framework.common.core.bean.BeanHelper;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
-import com.ctd.mall.framework.common.core.vo.user.login.LoginUserVO;
 import com.ctd.mall.micro.service.user.domain.user.User;
 import com.ctd.mall.micro.service.user.manager.user.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService
      * @param oldPassword oldPassword
      * @return UserVO
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public UserVO save(String id, String username, String password, String nickName, String headImgUrl, String mobile,
                        Integer sex, Boolean enabled, String type, String openId, String[] roleIds, String oldPassword)
@@ -51,10 +52,10 @@ public class UserServiceImpl implements UserService
      * findByOpenId
      *
      * @param openId openId
-     * @return LoginUserVO
+     * @return UserVO
      */
     @Override
-    public LoginUserVO findByOpenId(String openId)
+    public UserVO findByOpenId(String openId)
     {
         return userManager.findNonNullByOpenId(openId);
     }
@@ -66,17 +67,17 @@ public class UserServiceImpl implements UserService
      * @return UserVO
      */
     @Override
-    public LoginUserVO findByUserName(String userName)
+    public UserVO findByUserName(String userName)
     {
         return null;
     }
 
     /**
      * @param mobile mobile
-     * @return LoginUserVO
+     * @return UserVO
      */
     @Override
-    public LoginUserVO findByMobile(String mobile)
+    public UserVO findByMobile(String mobile)
     {
         return null;
     }

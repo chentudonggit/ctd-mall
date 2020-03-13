@@ -26,7 +26,7 @@ public class MenuVO implements Serializable
      * parentId
      */
     @JSONField(name = "parent_id")
-    private Long parentId;
+    private String parentId;
 
     /**
      * name
@@ -82,6 +82,12 @@ public class MenuVO implements Serializable
     @JSONField(name = "menu_ids")
     private Set<String> menuIds;
 
+    /**
+     * tenantId
+     */
+    @JSONField(name = "tenant_id")
+    private String tenantId;
+
     public String getId()
     {
         return id;
@@ -92,12 +98,12 @@ public class MenuVO implements Serializable
         this.id = id;
     }
 
-    public Long getParentId()
+    public String getParentId()
     {
         return parentId;
     }
 
-    public void setParentId(Long parentId)
+    public void setParentId(String parentId)
     {
         this.parentId = parentId;
     }
@@ -190,5 +196,34 @@ public class MenuVO implements Serializable
     public void setMenuIds(Set<String> menuIds)
     {
         this.menuIds = menuIds;
+    }
+
+    public String getTenantId()
+    {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId)
+    {
+        this.tenantId = tenantId;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "MenuVO{" +
+                "id='" + id + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", path='" + path + '\'' +
+                ", sort=" + sort +
+                ", type=" + type +
+                ", hidden=" + hidden +
+                ", method=" + method +
+                ", roleIds=" + roleIds +
+                ", menuIds=" + menuIds +
+                ", tenantId='" + tenantId + '\'' +
+                '}';
     }
 }

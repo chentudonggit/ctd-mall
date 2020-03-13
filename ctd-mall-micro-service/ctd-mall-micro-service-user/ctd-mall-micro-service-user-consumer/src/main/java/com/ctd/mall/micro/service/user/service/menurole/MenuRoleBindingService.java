@@ -3,7 +3,7 @@ package com.ctd.mall.micro.service.user.service.menurole;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.com.ctd.mall.micro.service.user.common.vo.binding.menurole.MenuRoleBindingVO;
+import com.ctd.mall.micro.service.user.common.vo.binding.menurole.MenuRoleBindingVO;
 
 
 /**

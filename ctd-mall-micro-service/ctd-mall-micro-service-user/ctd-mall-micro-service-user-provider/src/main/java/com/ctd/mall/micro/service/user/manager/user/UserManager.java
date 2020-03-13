@@ -3,7 +3,7 @@ package com.ctd.mall.micro.service.user.manager.user;
 import com.ctd.mall.framework.common.core.bean.BeanHelper;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
-import com.ctd.mall.framework.common.core.vo.user.login.LoginUserVO;
+import com.ctd.mall.framework.common.core.vo.user.UserVO;
 import com.ctd.mall.micro.service.user.domain.user.User;
 import com.ctd.mall.micro.service.user.manager.password.PassWordManager;
 import com.ctd.mall.micro.service.user.repository.user.UserRepository;
@@ -44,9 +44,9 @@ public class UserManager
      * 获取用户
      *
      * @param openId openId
-     * @return LoginUserVO
+     * @return UserVO
      */
-    public LoginUserVO findByOpenId(String openId)
+    public UserVO findByOpenId(String openId)
     {
         AssertUtils.isNull(openId, "openId 不能为空");
         User user = userRepository.findByOpenId(openId);
@@ -54,18 +54,18 @@ public class UserManager
         {
             return null;
         }
-        return BeanHelper.convert(user, LoginUserVO.class);
+        return BeanHelper.convert(user, UserVO.class);
     }
 
     /**
      * findNonNullByOpenId
      *
      * @param openId openId
-     * @return LoginUserVO
+     * @return UserVO
      */
-    public LoginUserVO findNonNullByOpenId(String openId)
+    public UserVO findNonNullByOpenId(String openId)
     {
-        LoginUserVO loginUser = findByOpenId(openId);
+        UserVO loginUser = findByOpenId(openId);
         AssertUtils.isNull(loginUser, "openId = " + openId + ", 用户不存在，请核对。");
         //用户权限
         return loginUser;
@@ -97,13 +97,13 @@ public class UserManager
         {
             user.setPassword(passWordManager.encode(password));
         }
-        user.setUsername(ParamUtils.returnParam(user.getUsername(), username));
+        user.setUsername(username);
         user.setNickname(ParamUtils.returnParam(user.getNickname(), nickName));
         user.setSex(ParamUtils.returnParam(user.getSex(), sex));
         user.setType(ParamUtils.returnParam(user.getType(), type));
         user.setOpenId(ParamUtils.returnParam(user.getOpenId(), openId));
         user.setHeadImgUrl(ParamUtils.returnParam(user.getHeadImgUrl(), headImgUrl));
-        user.setMobile(ParamUtils.returnParam(user.getMobile(), mobile));
+        user.setMobile(mobile);
         user.setEnabled(ParamUtils.returnParam(user.getEnabled(), enabled));
         user.setUpdateTime(new Date());
         return userRepository.save(user);

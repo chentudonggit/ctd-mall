@@ -1,5 +1,7 @@
 package com.ctd.mall.micro.service.auth.service.user;
 
+import com.ctd.mall.framework.auth.vo.user.login.LoginUserVO;
+import com.ctd.mall.framework.common.core.bean.BeanHelper;
 import com.ctd.mall.micro.service.user.client.user.UserClient;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.social.security.SocialUserDetails;
@@ -33,6 +35,8 @@ public class CustomSocialUserDetailsServiceImpl implements CustomSocialUserDetai
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException
     {
-        return userClient.findByOpenId(userId);
+        LoginUserVO loginUser = BeanHelper.convert(userClient.findByOpenId(userId), LoginUserVO.class);
+        //封装菜单
+        return loginUser;
     }
 }

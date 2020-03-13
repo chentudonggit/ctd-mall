@@ -1,4 +1,4 @@
-package com.ctd.mall.framework.common.core.vo.user.login;
+package com.ctd.mall.framework.auth.vo.user.login;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;

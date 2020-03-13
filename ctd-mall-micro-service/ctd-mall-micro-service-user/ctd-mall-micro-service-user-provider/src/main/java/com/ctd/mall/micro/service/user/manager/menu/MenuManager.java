@@ -2,6 +2,7 @@ package com.ctd.mall.micro.service.user.manager.menu;
 
 import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
+import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
 import com.ctd.mall.micro.service.user.domain.menu.Menu;
 import com.ctd.mall.micro.service.user.repository.menu.MenuRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -47,7 +48,6 @@ public class MenuManager
     {
         AssertUtils.isNull(type, "type 不能为空");
         AssertUtils.isNull(sort, "sort 不能为空");
-        AssertUtils.isNull(path, "path 不能为空");
         existenceName(id, name);
         existenceParent(parentId);
         Menu menu;
@@ -59,16 +59,17 @@ public class MenuManager
             menu = new Menu();
             menu.setCreateTime(new Date());
         }
-        menu.setParentId(parentId);
+        menu.setParentId(ParamUtils.returnParam(menu.getParentId(), parentId));
         menu.setName(name);
-        menu.setUrl(url);
-        menu.setPath(path);
-        menu.setMethod(method);
-        menu.setTenantId(tenantId);
-        menu.setHidden(hidden);
+        menu.setUrl(ParamUtils.returnParam(menu.getUrl(), url));
+        menu.setPath(ParamUtils.returnParam(menu.getPath(), path));
+        menu.setMethod(ParamUtils.returnParam(menu.getMethod(), method));
+        menu.setTenantId(ParamUtils.returnParam(menu.getTenantId(), tenantId));
+        menu.setHidden(ParamUtils.returnParam(menu.getHidden(), hidden));
         menu.setType(type);
         menu.setSort(sort);
         menu.setUpdateTime(new Date());
+        menuRepository.save(menu);
         return menu;
     }
 
@@ -95,7 +96,7 @@ public class MenuManager
     {
         AssertUtils.isNull(name, "name 不能为空");
         Menu menu = menuRepository.findByName(name);
-        if (Objects.nonNull(menu) && menu.getId().equals(id))
+        if (Objects.nonNull(menu) && (!(menu.getId().equals(id))))
         {
             AssertUtils.msgUser(name + " 已占有，请修改。");
         }

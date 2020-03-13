@@ -1,4 +1,4 @@
-package java.com.ctd.mall.micro.service.user.common.vo.binding.menurole;
+package com.ctd.mall.micro.service.user.common.vo.binding.menurole;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.ctd.mall.framework.common.core.enums.status.StatusEnum;

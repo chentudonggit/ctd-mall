@@ -5,7 +5,7 @@ import com.ctd.mall.micro.service.user.service.menurole.MenuRoleBindingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.com.ctd.mall.micro.service.user.common.vo.binding.menurole.MenuRoleBindingVO;
+import com.ctd.mall.micro.service.user.common.vo.binding.menurole.MenuRoleBindingVO;
 
 
 /**

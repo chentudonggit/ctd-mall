@@ -1,5 +1,7 @@
 package com.ctd.mall.micro.service.auth.service.user;
 
+import com.ctd.mall.framework.auth.vo.user.login.LoginUserVO;
+import com.ctd.mall.framework.common.core.bean.BeanHelper;
 import com.ctd.mall.micro.service.user.client.user.UserClient;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService
     {
         this.userClient = userClient;
     }
+
     /**
      * 手机号码获取用户
      *
@@ -29,7 +32,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService
     @Override
     public UserDetails loadUserByMobile(String mobile)
     {
-        return userClient.findByMobile(mobile);
+        return BeanHelper.convert(userClient.findByMobile(mobile), LoginUserVO.class);
     }
 
     /**
@@ -41,6 +44,6 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService
     @Override
     public UserDetails loadUserByUsername(String username)
     {
-        return userClient.findByUserName(username);
+        return BeanHelper.convert(userClient.findByUserName(username), LoginUserVO.class);
     }
 }

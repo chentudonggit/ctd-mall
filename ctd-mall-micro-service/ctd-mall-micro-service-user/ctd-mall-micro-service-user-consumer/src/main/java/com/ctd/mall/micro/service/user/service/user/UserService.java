@@ -1,7 +1,6 @@
 package com.ctd.mall.micro.service.user.service.user;
 
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
-import com.ctd.mall.framework.common.core.vo.user.login.LoginUserVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -50,10 +49,10 @@ public interface UserService
      * findByOpenId
      *
      * @param openId openId
-     * @return LoginUserVO
+     * @return UserVO
      */
     @RequestMapping("findByOpenId")
-    LoginUserVO findByOpenId(@RequestParam("openId") String openId);
+    UserVO findByOpenId(@RequestParam("openId") String openId);
 
     /**
      * findByUserName
@@ -62,12 +61,12 @@ public interface UserService
      * @return UserVO
      */
     @RequestMapping("findByUserName")
-    LoginUserVO findByUserName(@RequestParam("userName") String userName);
+    UserVO findByUserName(@RequestParam("userName") String userName);
 
     /**
      * @param mobile mobile
-     * @return LoginUserVO
+     * @return UserVO
      */
     @RequestMapping("findByMobile")
-    LoginUserVO findByMobile(@RequestParam("mobile") String mobile);
+    UserVO findByMobile(@RequestParam("mobile") String mobile);
 }
