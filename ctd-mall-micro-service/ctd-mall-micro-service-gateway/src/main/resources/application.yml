@@ -86,8 +86,8 @@ spring:
 eureka:
   instance:
     hostname: 192.168.1.107 #172.16.146.183
-    leaseRenewalIntervalInSeconds: 15
-    leaseExpirationDurationInSeconds: 45
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 10
     preferIpAddress: true
   client:
     serviceUrl:
@@ -122,7 +122,8 @@ ctd:
         /authenticate/images/**,
         /authenticate/js/**,
         /api-user/users-anon/**,
-        /login.html,
+        /authenticate/login/login,
+        /login/login,
         /user/login
 
     auth:

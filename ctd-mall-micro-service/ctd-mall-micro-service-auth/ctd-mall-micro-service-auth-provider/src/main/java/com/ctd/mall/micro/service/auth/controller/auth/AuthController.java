@@ -1,13 +1,22 @@
 package com.ctd.mall.micro.service.auth.controller.auth;
 
 import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
+import com.ctd.mall.framework.common.core.vo.result.ResultVO;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
 import com.ctd.mall.micro.service.auth.manager.token.TokenManager;
 import com.ctd.mall.micro.service.auth.service.user.CustomSocialUserDetailsService;
 import com.ctd.mall.micro.service.auth.service.user.CustomUserDetailsService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,6 +32,9 @@ import java.io.IOException;
 @RequestMapping("oauth")
 public class AuthController
 {
+    @Resource
+    private ObjectMapper objectMapper;
+
     @Autowired
     private TokenManager tokenManager;
 
@@ -58,6 +70,26 @@ public class AuthController
     public void token(@RequestBody UserVO user,
                       HttpServletRequest request, HttpServletResponse response) throws IOException
     {
-        tokenManager.writerToken(response, customUserDetailsService.token(user.getUsername(), user.getPassword(), request));
+        try
+        {
+            tokenManager.writerToken(response, customUserDetailsService.token(user.getUsername(), user.getPassword(), request));
+        } catch (BadCredentialsException | InternalAuthenticationServiceException e)
+        {
+            exceptionHandler(response, "账号或密码错误，请重新输入");
+        } catch (Exception e)
+        {
+            exceptionHandler(response, e);
+        }
+    }
+
+    private void exceptionHandler(HttpServletResponse response, Exception e) throws IOException
+    {
+        exceptionHandler(response, e.getMessage());
+    }
+
+    private void exceptionHandler(HttpServletResponse response, String msg) throws IOException
+    {
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        ResponseVO.responseWrite(objectMapper, response, ResultVO.failed(msg));
     }
 }

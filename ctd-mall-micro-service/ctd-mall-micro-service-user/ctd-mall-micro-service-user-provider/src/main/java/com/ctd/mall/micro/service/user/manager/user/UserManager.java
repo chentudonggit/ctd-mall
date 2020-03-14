@@ -192,6 +192,7 @@ public class UserManager
      */
     public User findByName(String username)
     {
+        AssertUtils.isNull(username, "username 不能为空");
         return userRepository.findByUsername(username);
     }
 }

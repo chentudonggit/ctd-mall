@@ -1,5 +1,6 @@
 package com.ctd.mall.framework.common.core.vo.result;
 
+import com.alibaba.fastjson.JSON;
 import com.ctd.mall.framework.common.core.enums.code.CodeEnum;
 
 import java.io.Serializable;
@@ -107,5 +108,10 @@ public class ResultVO<T> implements Serializable
                 ", code=" + code +
                 ", message='" + message + '\'' +
                 '}';
+    }
+
+    public String toJsonString()
+    {
+        return JSON.toJSONString(this);
     }
 }
