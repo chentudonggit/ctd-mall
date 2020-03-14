@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService
     @Override
     public UserVO findByUserName(String userName)
     {
-        return null;
+        return BeanHelper.convert(userManager.findByName(userName), UserVO.class);
     }
 
     /**

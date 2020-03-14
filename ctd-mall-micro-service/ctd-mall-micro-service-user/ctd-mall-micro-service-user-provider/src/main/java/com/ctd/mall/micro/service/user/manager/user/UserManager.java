@@ -166,7 +166,7 @@ public class UserManager
     private void existenceUsername(String id, String username)
     {
         AssertUtils.isNullToUser(username, "请输入用户名");
-        existence(id, username, userRepository.findByUsername(username));
+        existence(id, username, findByName(username));
     }
 
     /**
@@ -182,5 +182,16 @@ public class UserManager
         {
             AssertUtils.msgUser(msg + "已被占用，请重新输入。");
         }
+    }
+
+    /**
+     * 名称获取用户
+     *
+     * @param username username
+     * @return User
+     */
+    public User findByName(String username)
+    {
+        return userRepository.findByUsername(username);
     }
 }

@@ -38,6 +38,9 @@
         <social-security.version>1.1.6.RELEASE</social-security.version>
         <hutool.version>4.6.1</hutool.version>
         <commons-collections4.version>4.2</commons-collections4.version>
+        <oauth.version>2.3.7.RELEASE</oauth.version>
+        <banner.version>1.0.2</banner.version>
+        <thread-local.version>2.11.4</thread-local.version>
     </properties>
 
     <dependencyManagement>
@@ -78,6 +81,11 @@
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${oauth.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.projectreactor</groupId>
                 <artifactId>reactor-core</artifactId>
                 <version>${reactor.version}</version>
@@ -113,6 +121,17 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
                 <version>${commons-collections4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>banner</artifactId>
+                <version>${banner.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba/transmittable-thread-local -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${thread-local.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,5 +1,6 @@
 package com.ctd.mall.framework.auth.utils.auth;
 
+import com.ctd.mall.framework.auth.vo.client.ClientInfoVO;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
 import org.slf4j.Logger;
@@ -80,9 +81,12 @@ public final class AuthUtils
     }
 
     /**
-     * *从header 请求中的clientId:clientSecret
+     * header 请求中的clientId:clientSecret
+     *
+     * @param request request
+     * @return ClientInfoVO
      */
-    public static String[] extractClient(HttpServletRequest request)
+    public static ClientInfoVO extractClient(HttpServletRequest request)
     {
         String header = request.getHeader(TOKEN_HEADER);
         if (Objects.isNull(header) || !header.startsWith(BASIC_))
@@ -93,11 +97,12 @@ public final class AuthUtils
     }
 
     /**
-     * 从header 请求中的clientId:clientSecret
+     * header 请求中的clientId:clientSecret
      *
      * @param header header
+     * @return ClientInfoVO
      */
-    public static String[] extractHeaderClient(String header)
+    public static ClientInfoVO extractHeaderClient(String header)
     {
         byte[] base64Client = header.substring(BASIC_.length()).getBytes(StandardCharsets.UTF_8);
         byte[] decoded = Base64.getDecoder().decode(base64Client);
@@ -107,7 +112,10 @@ public final class AuthUtils
         {
             AssertUtils.msgDevelopment("Invalid basic authentication token");
         }
-        return clientArr;
+        ClientInfoVO clientInfo = new ClientInfoVO();
+        clientInfo.setClientId(clientArr[0]);
+        clientInfo.setClientSecret(clientArr[1]);
+        return clientInfo;
     }
 
     /**

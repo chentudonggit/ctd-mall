@@ -43,13 +43,13 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
      *
      * @since 1.0
      */
-    private static final String KEY_CODE = "code";
+    public static final String KEY_CODE = "code";
     /**
      * KEY_MESSAGE
      *
      * @since 1.0
      */
-    private static final String KEY_MESSAGE = "message";
+    public static final String KEY_MESSAGE = "message";
     /**
      * KEY_SUCCESS
      *
@@ -91,7 +91,8 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         try (
                 Writer writer = response.getWriter()
-        ) {
+        )
+        {
             writer.write(objectMapper.writeValueAsString(result));
             writer.flush();
         }
@@ -208,6 +209,19 @@ public class ResponseVO extends LinkedHashMap<String, Object> implements Seriali
                 httpStatus.getReasonPhrase());
         responseResult.put(KEY_DATA, row);
         return responseResult;
+    }
+
+    /**
+     * 输出流
+     *
+     * @param objectMapper objectMapper
+     * @param response     response
+     * @param obj          obj
+     * @throws IOException IOException
+     */
+    public static void responseSucceed(ObjectMapper objectMapper, HttpServletResponse response, Object obj) throws IOException
+    {
+        responseWrite(objectMapper, response, ResultVO.succeed(obj));
     }
 
     /**

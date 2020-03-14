@@ -3,8 +3,10 @@ package com.ctd.mall.micro.service.auth.config.security;
 import com.ctd.mall.framework.auth.constant.security.SecurityConstants;
 import com.ctd.mall.framework.common.core.config.password.security.DefaultPasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -40,7 +42,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     private PasswordEncoder passwordEncoder;
 
     /**
+     * 这一步的配置是必不可少的，否则SpringBoot会自动配置一个AuthenticationManager,覆盖掉内存中的用户
+     *
+     * @return 认证管理对象
+     */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception
+    {
+        return super.authenticationManagerBean();
+    }
+
+    /**
      * 安全配置 - 所有不做认证，认证在网关完成
+     *
      * @param http http
      * @throws Exception Exception
      */

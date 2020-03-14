@@ -2,8 +2,11 @@ package com.ctd.mall.micro.service.auth.service.user;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * CustomUserDetailsService
@@ -33,4 +36,14 @@ public interface CustomUserDetailsService extends UserDetailsService
     @Override
     @RequestMapping("loadUserByUsername")
     UserDetails loadUserByUsername(@RequestParam("username") String username);
+
+    /**
+     * token
+     *
+     * @param username username
+     * @param password password
+     * @param request  request
+     * @return OAuth2AccessToken
+     */
+    OAuth2AccessToken token(String username, String password, HttpServletRequest request);
 }
