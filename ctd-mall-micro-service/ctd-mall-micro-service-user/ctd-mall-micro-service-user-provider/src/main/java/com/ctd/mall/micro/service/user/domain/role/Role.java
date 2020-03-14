@@ -4,6 +4,7 @@ import com.ctd.mall.framework.common.core.enums.status.StatusEnum;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ import java.util.Date;
 @Table(name = "tbl_role")
 @DynamicUpdate
 @DynamicInsert
+@Where(clause = "status = 'Enable'")
 public class Role implements Serializable
 {
     private static final long serialVersionUID = 4353836008107490132L;

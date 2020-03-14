@@ -43,10 +43,10 @@ public final class AuthUtils
     public static String extractToken(HttpServletRequest request)
     {
         String token = extractHeaderToken(request);
-        if (token == null)
+        if (Objects.isNull(token))
         {
             token = request.getParameter(OAuth2AccessToken.ACCESS_TOKEN);
-            if (token == null)
+            if (Objects.isNull(token))
             {
                 LOGGER.debug("Token not found in request parameters.  Not an OAuth2 request.");
             }

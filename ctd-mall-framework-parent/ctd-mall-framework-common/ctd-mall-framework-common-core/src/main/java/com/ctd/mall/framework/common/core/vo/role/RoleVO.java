@@ -16,6 +16,12 @@ public class RoleVO implements Serializable
     private static final long serialVersionUID = 6534130632366133165L;
 
     /**
+     * id
+     */
+    @JSONField(name = "id")
+    private String id;
+
+    /**
      * code
      */
     @JSONField(name = "code")
@@ -32,6 +38,16 @@ public class RoleVO implements Serializable
      */
     @JSONField(name = "user_id")
     private Long userId;
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 
     public String getCode()
     {
@@ -67,7 +83,8 @@ public class RoleVO implements Serializable
     public String toString()
     {
         return "RoleVO{" +
-                "code='" + code + '\'' +
+                "id='" + id + '\'' +
+                ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", userId=" + userId +
                 '}';
