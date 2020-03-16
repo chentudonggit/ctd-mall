@@ -1,11 +1,11 @@
 package com.ctd.mall.micro.service.user.service.binding.menurole;
 
+import com.ctd.mall.framework.common.core.bean.BeanHelper;
+import com.ctd.mall.micro.service.user.common.vo.binding.menurole.MenuRoleBindingVO;
 import com.ctd.mall.micro.service.user.manager.binding.menurole.MenuRoleBindingManager;
 import com.ctd.mall.micro.service.user.service.menurole.MenuRoleBindingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ctd.mall.micro.service.user.common.vo.binding.menurole.MenuRoleBindingVO;
 
 
 /**
@@ -32,7 +32,7 @@ public class MenuRoleBindingServiceImpl implements MenuRoleBindingService
     @Override
     public MenuRoleBindingVO save(String id, String menuId, String roleId)
     {
-        return null;
+        return BeanHelper.convert(menuRoleBindingManager.save(id, menuId, roleId), MenuRoleBindingVO.class);
     }
 
     /**
