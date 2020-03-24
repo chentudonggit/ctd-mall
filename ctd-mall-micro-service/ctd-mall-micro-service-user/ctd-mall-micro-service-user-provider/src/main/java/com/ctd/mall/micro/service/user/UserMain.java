@@ -7,6 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -21,6 +22,7 @@ import java.util.concurrent.CountDownLatch;
 @EnableDiscoveryClient
 @SpringBootApplication
 @ComponentScan("com.ctd.mall.*")
+@EnableSwagger2
 public class UserMain
 {
     public static void main(String[] args) throws Exception

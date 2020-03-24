@@ -22,6 +22,7 @@
         <module>ctd-mall-framework-mysql-starter</module>
         <module>ctd-mall-framework-data-jpa-starter</module>
         <module>ctd-mall-framework-mybatis-plus-starter</module>
+        <module>ctd-mall-framework-swagger-starter</module>
     </modules>
 
     <properties>
@@ -41,6 +42,10 @@
         <oauth.version>2.3.7.RELEASE</oauth.version>
         <banner.version>1.0.2</banner.version>
         <thread-local.version>2.11.4</thread-local.version>
+        <swagger.version>2.9.2</swagger.version>
+        <swagger.ui.version>1.8.7</swagger.ui.version>
+        <swagger.mg.ui.version>1.0.6</swagger.mg.ui.version>
+        <swagger.butler.version>2.0.1</swagger.butler.version>
     </properties>
 
     <dependencyManagement>
@@ -132,6 +137,37 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>transmittable-thread-local</artifactId>
                 <version>${thread-local.version}</version>
+            </dependency>
+            <!-- swagger -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-bean-validators</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>swagger-bootstrap-ui</artifactId>
+                <version>${swagger.ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zyplayer</groupId>
+                <artifactId>swagger-mg-ui</artifactId>
+                <version>${swagger.mg.ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.zlt2000</groupId>
+                <artifactId>swagger-butler-core</artifactId>
+                <version>${swagger.butler.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

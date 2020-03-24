@@ -6,6 +6,7 @@ import com.ctd.mall.micro.service.user.manager.binding.menurole.MenuRoleBindingM
 import com.ctd.mall.micro.service.user.service.menurole.MenuRoleBindingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/3/13 10:08 上午
  * @since 1.0
  */
+@ApiIgnore
 @RestController
 public class MenuRoleBindingServiceImpl implements MenuRoleBindingService
 {

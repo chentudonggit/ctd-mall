@@ -5,6 +5,7 @@ import com.ctd.mall.framework.common.core.vo.role.RoleVO;
 import com.ctd.mall.micro.service.user.manager.role.RoleManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * RoleServiceImpl
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/3/14 16:19
  * @since 1.0
  */
+@ApiIgnore
 @RestController
 public class RoleServiceImpl implements RoleService
 {

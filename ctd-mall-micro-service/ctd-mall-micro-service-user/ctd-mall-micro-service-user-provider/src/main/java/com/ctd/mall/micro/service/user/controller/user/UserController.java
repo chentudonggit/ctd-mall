@@ -4,6 +4,8 @@ import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
 import com.ctd.mall.micro.service.user.service.user.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("user")
+@Api("用户")
 public class UserController
 {
     private final UserService userService;
@@ -33,6 +36,7 @@ public class UserController
      * @param u u
      * @return ResponseVO
      */
+    @ApiOperation("保存/更新")
     @PostMapping("save")
     public ResponseVO save(@RequestBody UserVO u)
     {

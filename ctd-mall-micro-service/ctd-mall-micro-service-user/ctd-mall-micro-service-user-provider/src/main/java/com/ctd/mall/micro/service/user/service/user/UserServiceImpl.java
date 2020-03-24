@@ -7,6 +7,7 @@ import com.ctd.mall.micro.service.user.manager.user.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * UserServiceImpl
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/3/8 12:28
  * @since 1.0
  */
-
+@ApiIgnore
 @RestController
 public class UserServiceImpl implements UserService
 {
