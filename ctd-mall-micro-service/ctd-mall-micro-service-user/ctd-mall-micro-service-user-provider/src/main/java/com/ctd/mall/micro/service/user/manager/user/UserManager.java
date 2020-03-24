@@ -66,7 +66,7 @@ public class UserManager
     public UserVO findNonNullByOpenId(String openId)
     {
         UserVO loginUser = findByOpenId(openId);
-        AssertUtils.isNull(loginUser, "openId = " + openId + ", 用户不存在，请核对。");
+        AssertUtils.isNull(loginUser, "openId = %s , 用户不存在，请核对。", openId);
         //用户权限
         return loginUser;
     }
@@ -180,7 +180,7 @@ public class UserManager
     {
         if (Objects.nonNull(user) && (!user.getId().equals(id)))
         {
-            AssertUtils.msgUser(msg + "已被占用，请重新输入。");
+            AssertUtils.msgUser("%s 已被占用，请重新输入。", msg);
         }
     }
 

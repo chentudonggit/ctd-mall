@@ -76,7 +76,7 @@ public class RoleManager
     public Role findNonNullById(String id)
     {
         Role role = findById(id);
-        AssertUtils.isNull(role, "id = " + id + " 角色不存在，请核对。");
+        AssertUtils.isNull(role, "id = %s 角色不存在，请核对。", id);
         return role;
     }
 
@@ -92,7 +92,7 @@ public class RoleManager
     {
         AssertUtils.isNull(code, "code 不能为空");
         AssertUtils.isNull(name, "name 不能为空");
-        existence(id, roleRepository.findByCodeAndName(code, name), "code = " + code + ", name = " + name + " 已占用，请修改。");
+        existence(id, roleRepository.findByCodeAndName(code, name), "code = %s , name = %s 已占用，请修改。", code, name);
     }
 
     /**
@@ -104,7 +104,7 @@ public class RoleManager
     private void existenceName(String id, String name)
     {
         AssertUtils.isNull(name, "name 不能为空");
-        existence(id, roleRepository.findByName(name), "name = " + name + " 已占用，请修改。");
+        existence(id, roleRepository.findByName(name), "name = %s 已占用，请修改。", name);
     }
 
     /**
@@ -116,7 +116,7 @@ public class RoleManager
     private void existenceCode(String id, String code)
     {
         AssertUtils.isNull(code, "code 不能为空");
-        existence(id, roleRepository.findByCode(code), "code = " + code + " 已占用，请修改。");
+        existence(id, roleRepository.findByCode(code), "code = %s 已占用，请修改。", code);
     }
 
     /**
@@ -126,11 +126,11 @@ public class RoleManager
      * @param role role
      * @param msg  msg
      */
-    private void existence(String id, Role role, String msg)
+    private void existence(String id, Role role, String msg, Object... args)
     {
         if (Objects.nonNull(role) && (!role.getId().equals(id)))
         {
-            AssertUtils.msgUser(msg);
+            AssertUtils.msgUser(msg, args);
         }
     }
 }

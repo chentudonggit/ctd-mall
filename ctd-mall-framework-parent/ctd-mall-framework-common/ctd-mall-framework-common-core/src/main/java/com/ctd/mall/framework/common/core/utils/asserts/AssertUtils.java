@@ -29,11 +29,11 @@ public final class AssertUtils
      * @param obj obj
      * @param msg msg
      */
-    public static void isNull(Object obj, String msg)
+    public static void isNull(Object obj, String msg, Object... args)
     {
         if (isNull(obj))
         {
-            msgDevelopment(msg);
+            msgDevelopment(msg, args);
         }
     }
 
@@ -43,11 +43,11 @@ public final class AssertUtils
      * @param obj obj
      * @param msg msg
      */
-    public static void isNullToUser(Object obj, String msg)
+    public static void isNullToUser(Object obj, String msg, Object... args)
     {
         if (isNull(obj))
         {
-            msgUser(msg);
+            msgUser(msg, args);
         }
     }
 
@@ -121,9 +121,9 @@ public final class AssertUtils
      *
      * @param msg msg
      */
-    public static void msgDevelopment(String msg)
+    public static void msgDevelopment(String msg, Object... args)
     {
-        throw new InternalException(msg(msg));
+        throw new InternalException(msg(msg, args));
     }
 
     /**
@@ -131,19 +131,32 @@ public final class AssertUtils
      *
      * @param msg msg
      */
-    public static void msgUser(String msg)
+    public static void msgUser(String msg, Object... args)
     {
-        throw new UnifiedException(msg(msg));
+        throw new UnifiedException(msg(msg, args));
     }
 
     /**
      * msg
-     *
+     * %s	字符串类型	“喜欢请收藏”
+     * %c	字符类型	‘m’
+     * %b	布尔类型	true
+     * %d	整数类型（十进制）	88
+     * %x	整数类型（十六进制）	FF
+     * %o	整数类型（八进制）	77
+     * %f	浮点类型	8.888
+     * %a	十六进制浮点类型	FF.35AE
+     * %e	指数类型	9.38e+5
+     * %g	通用浮点类型（f和e类型中较短的）	不举例(基本用不到)
+     * %h	散列码	不举例(基本用不到)
+     * %%	百分比类型	％(%特殊字符%%才能显示%)
+     * %n	换行符	不举例(基本用不到)
+     * %tx	日期与时间类型（x代表不同的日期与时间转换符)	不举例(基本用不到)
      * @param msg msg
      * @return String
      */
-    public static String msg(String msg)
+    public static String msg(String msg, Object... args)
     {
-        return StringUtils.isBlank(msg) ? "网络异常，请稍后重试！" : msg;
+        return StringUtils.isBlank(msg) ? "网络异常，请稍后重试！" : String.format(msg, args);
     }
 }

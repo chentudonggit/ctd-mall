@@ -24,7 +24,7 @@ public class OpenIdAuthenticationProvider implements AuthenticationProvider
         OpenIdAuthenticationToken authenticationToken = (OpenIdAuthenticationToken) authentication;
         String openId = (String) authenticationToken.getPrincipal();
         UserDetails user = userDetailsService.loadUserByUserId(openId);
-        AssertUtils.isNull(user, "openId = " + openId + ", 用户不存在，请核对。");
+        AssertUtils.isNull(user, "openId = %s, 用户不存在，请核对。", openId);
         OpenIdAuthenticationToken authenticationResult = new OpenIdAuthenticationToken(user, user.getAuthorities());
         authenticationResult.setDetails(authenticationToken.getDetails());
         return authenticationResult;

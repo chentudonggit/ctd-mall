@@ -84,7 +84,7 @@ public class MenuRoleBindingManager
     public MenuRoleBinding findNonNullById(String id)
     {
         MenuRoleBinding roleBinding = findById(id);
-        AssertUtils.isNull(roleBinding, "id =" + id + " 记录不存在，请核对。");
+        AssertUtils.isNull(roleBinding, "id = %s 记录不存在，请核对。", id);
         return roleBinding;
     }
 }

@@ -98,7 +98,7 @@ public class MenuManager
         Menu menu = menuRepository.findByName(name);
         if (Objects.nonNull(menu) && (!(menu.getId().equals(id))))
         {
-            AssertUtils.msgUser(name + " 已占有，请修改。");
+            AssertUtils.msgUser(  "%s 已占有，请修改。", name);
         }
     }
 
@@ -121,7 +121,7 @@ public class MenuManager
     public Menu findNonNullById(String id)
     {
         Menu menu = findById(id);
-        AssertUtils.isNull(menu, "id = " + id + " 菜单不存在，请核对。");
+        AssertUtils.isNull(menu, "id = %s 菜单不存在，请核对。", id);
         return menu;
     }
 }
