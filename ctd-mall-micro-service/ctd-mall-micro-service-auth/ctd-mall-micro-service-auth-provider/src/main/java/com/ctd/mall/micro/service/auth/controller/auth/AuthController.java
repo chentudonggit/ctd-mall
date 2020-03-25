@@ -1,5 +1,7 @@
 package com.ctd.mall.micro.service.auth.controller.auth;
 
+import com.ctd.mall.framework.common.core.annotation.login.LoginUser;
+import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
 import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
 import com.ctd.mall.framework.common.core.vo.result.ResultVO;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
@@ -7,14 +9,15 @@ import com.ctd.mall.micro.service.auth.manager.token.TokenManager;
 import com.ctd.mall.micro.service.auth.service.user.CustomSocialUserDetailsService;
 import com.ctd.mall.micro.service.auth.service.user.CustomUserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +31,7 @@ import java.io.IOException;
  * @date 2020/3/8 13:40
  * @since 1.0
  */
+@Api(tags = "认证")
 @RestController
 @RequestMapping("oauth")
 public class AuthController
@@ -40,11 +44,27 @@ public class AuthController
 
     private final CustomSocialUserDetailsService customSocialUserDetailsService;
     private final CustomUserDetailsService customUserDetailsService;
+    private final ClientDetailsService clientDetailsService;
 
-    public AuthController(CustomSocialUserDetailsService customSocialUserDetailsService, CustomUserDetailsService customUserDetailsService)
+    public AuthController(CustomSocialUserDetailsService customSocialUserDetailsService,
+                          CustomUserDetailsService customUserDetailsService, ClientDetailsService clientDetailsService)
     {
         this.customSocialUserDetailsService = customSocialUserDetailsService;
         this.customUserDetailsService = customUserDetailsService;
+        this.clientDetailsService = clientDetailsService;
+    }
+
+    /**
+     * 获取登录用户的信息
+     *
+     * @param user user
+     * @return ResponseVO
+     */
+    @ApiOperation("获取登录用户的信息")
+    @PostMapping("loginUserInfo")
+    public ResponseVO loginUserInfo(@LoginUser UserVO user)
+    {
+        return ResponseVO.data(user);
     }
 
     /**
@@ -53,6 +73,7 @@ public class AuthController
      * @param openId openId
      * @return ResponseVO
      */
+    @ApiOperation("openId 获取用户详情")
     @RequestMapping("findByOpenId")
     public ResponseVO findByOpenId(String openId)
     {
@@ -66,6 +87,7 @@ public class AuthController
      * @param request  request
      * @param response response
      */
+    @ApiOperation("用户账号密码获取token")
     @PostMapping("/user/token")
     public void token(@RequestBody UserVO user,
                       HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -80,6 +102,34 @@ public class AuthController
         {
             exceptionHandler(response, e);
         }
+    }
+
+    /**
+     * 手机号/验证码获取 token
+     *
+     * @param map      map
+     * @param request  request
+     * @param response response
+     */
+    @ApiOperation("手机号/验证码获取 token")
+    @PostMapping("tokenMobileAndCode")
+    public void tokenMobileAndCode(@RequestBody ModelMap map, HttpServletRequest request, HttpServletResponse response) throws IOException
+    {
+        tokenManager.writerToken(response, customUserDetailsService.tokenMobileAndCode(ParamUtils.getParam(map,
+                ParamUtils.MOBILE), ParamUtils.getParam(map, ParamUtils.CODE), request));
+    }
+
+    /**
+     * 获取客户端详情
+     *
+     * @param clientId clientId
+     * @return ResponseVO
+     */
+    @ApiOperation("获取客户端详情")
+    @GetMapping("findClientById/{clientId}")
+    public ResponseVO findClientById(@PathVariable String clientId)
+    {
+        return ResponseVO.data(clientDetailsService.loadClientByClientId(clientId));
     }
 
     private void exceptionHandler(HttpServletResponse response, Exception e) throws IOException

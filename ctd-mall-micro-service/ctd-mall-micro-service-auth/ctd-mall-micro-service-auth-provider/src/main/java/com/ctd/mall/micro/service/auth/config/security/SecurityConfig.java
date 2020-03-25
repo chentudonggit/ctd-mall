@@ -2,6 +2,7 @@ package com.ctd.mall.micro.service.auth.config.security;
 
 import com.ctd.mall.framework.auth.constant.security.SecurityConstants;
 import com.ctd.mall.framework.common.core.config.password.security.DefaultPasswordConfig;
+import com.ctd.mall.micro.service.auth.config.authorization.mobile.MobileAuthenticationSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private MobileAuthenticationSecurityConfig mobileAuthenticationSecurityConfig;
+
     /**
      * 这一步的配置是必不可少的，否则SpringBoot会自动配置一个AuthenticationManager,覆盖掉内存中的用户
      *
@@ -77,6 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .logoutSuccessUrl(SecurityConstants.LOGIN_PAGE)
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
                 .clearAuthentication(true)
+                .and()
+                .apply(mobileAuthenticationSecurityConfig)
                 .and()
                 .csrf().disable()
                 // 解决不允许显示在iframe的问题

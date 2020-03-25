@@ -2,14 +2,17 @@ package com.ctd.mall.micro.service.auth.service.user;
 
 import com.ctd.mall.framework.auth.vo.user.login.LoginUserVO;
 import com.ctd.mall.framework.common.core.bean.BeanHelper;
+import com.ctd.mall.micro.service.auth.config.validate.code.ValidateCodeCacheConfig;
 import com.ctd.mall.micro.service.auth.manager.token.TokenManager;
 import com.ctd.mall.micro.service.user.client.user.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * CustomUserDetailsServiceImpl
@@ -18,9 +21,12 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2020/3/8 8:29
  * @since 1.0
  */
+@ApiIgnore
 @RestController
 public class CustomUserDetailsServiceImpl implements CustomUserDetailsService
 {
+    @Autowired
+    private ValidateCodeCacheConfig validateCodeCacheConfig;
     @Autowired
     private TokenManager tokenManager;
 
@@ -67,5 +73,24 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService
     public OAuth2AccessToken token(String userName, String passWord, HttpServletRequest request)
     {
         return tokenManager.token(userName, passWord, request);
+    }
+
+    /**
+     * 手机号/验证码
+     *
+     * @param mobile  mobile
+     * @param code    code
+     * @param request request
+     * @return OAuth2AccessToken
+     */
+    @Override
+    public OAuth2AccessToken tokenMobileAndCode(String mobile, String code, HttpServletRequest request)
+    {
+        OAuth2AccessToken oAuth2AccessToken = tokenManager.tokenMobileAndCode(mobile, code, request);
+        if (Objects.nonNull(oAuth2AccessToken))
+        {
+            validateCodeCacheConfig.remove(mobile);
+        }
+        return oAuth2AccessToken;
     }
 }

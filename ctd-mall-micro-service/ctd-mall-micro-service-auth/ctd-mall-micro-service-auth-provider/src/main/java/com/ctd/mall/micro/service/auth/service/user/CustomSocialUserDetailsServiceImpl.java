@@ -6,6 +6,7 @@ import com.ctd.mall.micro.service.user.client.user.UserClient;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * CustomSocialUserDetailsServiceImpl
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/3/8 8:48
  * @since 1.0
  */
+@ApiIgnore
 @RestController
 public class CustomSocialUserDetailsServiceImpl implements CustomSocialUserDetailsService
 {

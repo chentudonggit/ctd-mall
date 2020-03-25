@@ -195,4 +195,16 @@ public class UserManager
         AssertUtils.isNull(username, "username 不能为空");
         return userRepository.findByUsername(username);
     }
+
+    /**
+     * findByMobile
+     *
+     * @param mobile mobile
+     * @return User
+     */
+    public User findByMobile(String mobile)
+    {
+        AssertUtils.isNullToUser(mobile, "请输入手机号");
+        return userRepository.findByMobile(mobile);
+    }
 }

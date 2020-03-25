@@ -20,6 +20,9 @@ public final class ParamUtils
         throw new IllegalStateException("Utility class");
     }
 
+    public static final String MOBILE = "mobile";
+    public static final String CODE = "code";
+
     /**
      * 获取参数
      *
@@ -32,7 +35,23 @@ public final class ParamUtils
     {
         if (AssertUtils.nonNull(map) && StringUtils.isNotBlank(key))
         {
-            return (T) map.get(key);
+            return getParam(map.get(key));
+        }
+        return null;
+    }
+
+    /**
+     * getParam
+     *
+     * @param obj obj
+     * @param <T> <T>
+     * @return T
+     */
+    public static <T> T getParam(Object obj)
+    {
+        if (AssertUtils.nonNull(obj) && StringUtils.isNotBlank(obj.toString()))
+        {
+            return (T) obj;
         }
         return null;
     }

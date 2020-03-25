@@ -1,5 +1,6 @@
 package com.ctd.mall.micro.service.auth.manager.token;
 
+import com.ctd.mall.framework.auth.token.mobile.MobileAuthenticationToken;
 import com.ctd.mall.framework.auth.utils.auth.AuthUtils;
 import com.ctd.mall.framework.auth.vo.client.ClientInfoVO;
 import com.ctd.mall.framework.common.core.holder.context.TenantContextHolder;
@@ -8,13 +9,13 @@ import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.stereotype.Component;
@@ -73,23 +74,56 @@ public class TokenManager
     {
         AssertUtils.isNull(userName, "userName 不能为空");
         AssertUtils.isNull(passWord, "passWord 不能为空");
-        ClientDetails clientDetails = getClientDetail(request);
-        if (Objects.isNull(clientDetails))
-        {
-            return null;
-        }
-        String clientId = clientDetails.getClientId();
-        //保存租户id
-        TenantContextHolder.setTenant(clientId);
-        TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(), "customer");
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName, passWord);
-        OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
+        return setOAuth2AccessToken(request, new UsernamePasswordAuthenticationToken(userName, passWord));
+    }
+
+    /**
+     * setOAuth2AccessToken
+     *
+     * @param request request
+     * @param token   token
+     * @return OAuth2AccessToken
+     */
+    public OAuth2AccessToken setOAuth2AccessToken(HttpServletRequest request, AbstractAuthenticationToken token)
+    {
+        AssertUtils.isNull(request, "request 不能为空");
+        AssertUtils.isNull(token, "token 不能为空");
         Authentication authentication = authenticationManager.authenticate(token);
+        OAuth2Request oAuth2Request = setOAuth2Request(request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
         OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
         oAuth2Authentication.setAuthenticated(true);
         return oAuth2AccessToken;
+    }
+
+    /**
+     * setOAuth2Request
+     *
+     * @param request request
+     * @return OAuth2Request
+     */
+    public OAuth2Request setOAuth2Request(HttpServletRequest request)
+    {
+        ClientDetails clientDetails = nonNullClientDetail(request);
+        String clientId = clientDetails.getClientId();
+        //保存租户id
+        TenantContextHolder.setTenant(clientId);
+        TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(), "customer");
+        return tokenRequest.createOAuth2Request(clientDetails);
+    }
+
+    /**
+     * nonNullClientDetail
+     *
+     * @param request request
+     * @return ClientDetails
+     */
+    public ClientDetails nonNullClientDetail(HttpServletRequest request)
+    {
+        ClientDetails clientDetails = getClientDetail(request);
+        AssertUtils.isNullToUser(clientDetails, "未配置clientId, 请联系管理员.");
+        return clientDetails;
     }
 
     /**
@@ -122,13 +156,30 @@ public class TokenManager
         }
         String clientId = clientInfo.getClientId();
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
-        if (Objects.isNull(clientDetails))
+        AssertUtils.isNull(clientDetails, "clientId = %s 数据不存在，请核对。", clientId);
+
+        if (!clientDetails.getClientSecret().equals(clientInfo.getClientSecret()))
         {
-            throw new UnapprovedClientAuthenticationException("clientId = " + clientId + " 数据不存在，请核对。");
-        } else if (!passwordEncoder.matches(clientInfo.getClientSecret(), clientDetails.getClientSecret()))
-        {
-            throw new UnapprovedClientAuthenticationException("clientSecret 填写错误");
+            if (!passwordEncoder.matches(clientInfo.getClientSecret(), clientDetails.getClientSecret()))
+            {
+                AssertUtils.msgUser("clientId = %s 密码错误，请联系管理员。", clientId);
+            }
         }
         return clientDetails;
+    }
+
+    /**
+     * 手机号/验证码
+     *
+     * @param mobile  mobile
+     * @param code    code
+     * @param request request
+     * @return OAuth2AccessToken
+     */
+    public OAuth2AccessToken tokenMobileAndCode(String mobile, String code, HttpServletRequest request)
+    {
+        AssertUtils.isNullToUser(mobile, "请输入手机号");
+        AssertUtils.isNullToUser(code, "请输入验证码");
+        return setOAuth2AccessToken(request, new MobileAuthenticationToken(mobile, code, true));
     }
 }

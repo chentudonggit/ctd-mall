@@ -8,6 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -18,6 +19,7 @@ import java.util.concurrent.CountDownLatch;
  * @date 2020/3/7 21:59
  * @since 1.0
  */
+@EnableSwagger2
 @EnableFeignClients
 @EnableDiscoveryClient
 @EnableRedisHttpSession

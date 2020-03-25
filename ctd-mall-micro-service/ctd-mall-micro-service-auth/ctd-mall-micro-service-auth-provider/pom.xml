@@ -55,5 +55,15 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ctd.mall</groupId>
+            <artifactId>ctd-mall-framework-swagger-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ctd.mall</groupId>
+            <artifactId>ctd-mall-framework-backend-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

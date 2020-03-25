@@ -14,4 +14,10 @@ import java.lang.annotation.*;
 @Documented
 public @interface LoginUser
 {
+    /**
+     * 所有信息
+     *
+     * @return boolean
+     */
+    boolean allInfo() default false;
 }

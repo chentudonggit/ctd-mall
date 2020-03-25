@@ -23,6 +23,7 @@
         <module>ctd-mall-framework-data-jpa-starter</module>
         <module>ctd-mall-framework-mybatis-plus-starter</module>
         <module>ctd-mall-framework-swagger-starter</module>
+        <module>ctd-mall-framework-backend-starter</module>
     </modules>
 
     <properties>

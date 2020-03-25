@@ -45,5 +45,21 @@ public interface CustomUserDetailsService extends UserDetailsService
      * @param request  request
      * @return OAuth2AccessToken
      */
-    OAuth2AccessToken token(String username, String password, HttpServletRequest request);
+    @RequestMapping("token")
+    OAuth2AccessToken token(@RequestParam("username") String username,
+                            @RequestParam("password") String password,
+                            @RequestParam("request") HttpServletRequest request);
+
+    /**
+     * 手机号/验证码
+     *
+     * @param mobile  mobile
+     * @param code    code
+     * @param request request
+     * @return OAuth2AccessToken
+     */
+    @RequestMapping("tokenMobileAndCode")
+    OAuth2AccessToken tokenMobileAndCode(@RequestParam("mobile") String mobile,
+                                         @RequestParam("code") String code,
+                                         @RequestParam("request") HttpServletRequest request);
 }

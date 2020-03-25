@@ -22,7 +22,7 @@ public class Oauth2AuthSuccessHandler implements ServerAuthenticationSuccessHand
 {
     @Override
     public Mono<Void> onAuthenticationSuccess(WebFilterExchange webFilterExchange, Authentication authentication) {
-         UserVO user = (UserVO)authentication.getPrincipal();
+        UserVO user = (UserVO)authentication.getPrincipal();
         String userId = user.getId();
         String username = user.getUsername();
         OAuth2Authentication oauth2Authentication = (OAuth2Authentication)authentication;

@@ -80,6 +80,6 @@ public class UserServiceImpl implements UserService
     @Override
     public UserVO findByMobile(String mobile)
     {
-        return null;
+        return BeanHelper.convert(userManager.findByMobile(mobile), UserVO.class);
     }
 }

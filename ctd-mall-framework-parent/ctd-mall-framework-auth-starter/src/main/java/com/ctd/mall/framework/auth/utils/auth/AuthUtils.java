@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
@@ -91,7 +90,7 @@ public final class AuthUtils
         String header = request.getHeader(TOKEN_HEADER);
         if (Objects.isNull(header) || !header.startsWith(BASIC_))
         {
-            throw new UnapprovedClientAuthenticationException("请求头中client信息为空");
+            AssertUtils.msgDevelopment("请求头中client信息为空");
         }
         return extractHeaderClient(header);
     }

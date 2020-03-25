@@ -20,12 +20,14 @@ public class MobileAuthenticationToken extends AbstractAuthenticationToken
 
     private final Object principal;
     private Object credentials;
+    private boolean isSmsCode;
 
-    public MobileAuthenticationToken(String mobile, String password)
+    public MobileAuthenticationToken(String mobile, String password, boolean isSmsCode)
     {
         super(null);
         this.principal = mobile;
         this.credentials = password;
+        this.isSmsCode = isSmsCode;
         setAuthenticated(false);
     }
 
@@ -65,5 +67,15 @@ public class MobileAuthenticationToken extends AbstractAuthenticationToken
     public void eraseCredentials()
     {
         super.eraseCredentials();
+    }
+
+    public boolean isSmsCode()
+    {
+        return isSmsCode;
+    }
+
+    public void setSmsCode(boolean smsCode)
+    {
+        isSmsCode = smsCode;
     }
 }
