@@ -1,10 +1,10 @@
-package com.ctd.mall.micro.service.auth.resolver.token;
+package com.ctd.mall.micro.service.user.resolver.token;
 
-import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import com.ctd.mall.framework.common.core.annotation.login.LoginUser;
+import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
-import com.ctd.mall.micro.service.user.client.user.UserClient;
+import com.ctd.mall.micro.service.user.service.user.UserService;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -15,19 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 /**
- * Token to User
+ * 处理
  *
  * @author chentudong
- * @date 2020/3/26 0:17
+ * @date 2020/3/27 0:18
  * @since 1.0
  */
 public class TokenArgumentResolver implements HandlerMethodArgumentResolver
 {
-    private final UserClient userClient;
+    private final UserService userService;
 
-    public TokenArgumentResolver(UserClient userClient)
+    public TokenArgumentResolver(UserService userService)
     {
-        this.userClient = userClient;
+        this.userService = userService;
     }
 
     @Override
@@ -36,16 +36,6 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver
         return methodParameter.hasParameterAnnotation(LoginUser.class) && methodParameter.getParameterType().equals(UserVO.class);
     }
 
-    /**
-     * 解析token
-     *
-     * @param methodParameter       methodParameter
-     * @param modelAndViewContainer modelAndViewContainer
-     * @param nativeWebRequest      nativeWebRequest
-     * @param webDataBinderFactory  webDataBinderFactory
-     * @return Object
-     * @throws Exception Exception
-     */
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,
                                   NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception
@@ -64,7 +54,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver
                 if (loginUser.allInfo())
                 {
                     //详细信息
-                    user = userClient.findByUserName(username);
+                    user = userService.findByUserName(username);
                 } else
                 {
                     //简略信息

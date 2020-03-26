@@ -1,6 +1,6 @@
 package com.ctd.mall.framework.auth.store.redis;
 
-import com.ctd.mall.framework.auth.constant.security.SecurityConstants;
+import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import com.ctd.mall.framework.auth.properties.security.SecurityProperties;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import org.apache.commons.lang3.StringUtils;

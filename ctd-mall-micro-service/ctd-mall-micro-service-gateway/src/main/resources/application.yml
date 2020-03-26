@@ -72,7 +72,7 @@ spring:
           filters:
             - PreserveHostHeader
         - id: user
-          uri: lb://ctd-mall-auth-server
+          uri: lb://ctd-mall-user-server
           predicates:
             - Path=/user/**
           filters:
@@ -132,9 +132,7 @@ ctd:
         enable: false
         #配置只进行登录认证，不进行url权限认证的api
         ignore-urls: >
-          /user/menus/current,
-          /user/users/current,
-          /log/requestStat
+          /user/user/loginUserInfo
         #白名单
         include-client-ids:
           - webApp

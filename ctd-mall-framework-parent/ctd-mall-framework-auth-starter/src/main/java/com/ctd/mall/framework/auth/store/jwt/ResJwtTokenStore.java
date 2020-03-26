@@ -1,6 +1,6 @@
 package com.ctd.mall.framework.auth.store.jwt;
 
-import com.ctd.mall.framework.auth.constant.security.SecurityConstants;
+import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import com.ctd.mall.framework.auth.converter.authentication.CustomUserAuthenticationConverter;
 import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
 import org.apache.commons.lang3.StringUtils;

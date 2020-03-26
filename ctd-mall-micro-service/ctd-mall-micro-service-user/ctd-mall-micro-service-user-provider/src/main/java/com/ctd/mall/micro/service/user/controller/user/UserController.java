@@ -1,5 +1,6 @@
 package com.ctd.mall.micro.service.user.controller.user;
 
+import com.ctd.mall.framework.common.core.annotation.login.LoginUser;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
@@ -58,5 +59,18 @@ public class UserController
                 u.getOpenId(),
                 arrRoleIds,
                 u.getOldPassword()));
+    }
+
+    /**
+     * 获取登录用户的信息
+     *
+     * @param user user
+     * @return ResponseVO
+     */
+    @ApiOperation("获取登录用户的信息")
+    @PostMapping("loginUserInfo")
+    public ResponseVO loginUserInfo(@LoginUser UserVO user)
+    {
+        return ResponseVO.data(user);
     }
 }

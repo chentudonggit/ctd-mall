@@ -43,7 +43,6 @@ public class ValidateCodeController
     @GetMapping("sendSmsCode/{mobile}")
     public ResponseVO sendSmsCode(@PathVariable String mobile)
     {
-        validateCodeService.sendSmsCode(mobile);
-        return ResponseVO.data("发送成功");
+        return ResponseVO.data(validateCodeService.sendSmsCode(mobile));
     }
 }

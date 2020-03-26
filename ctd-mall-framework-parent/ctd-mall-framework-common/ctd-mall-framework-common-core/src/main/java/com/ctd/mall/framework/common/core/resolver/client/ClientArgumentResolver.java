@@ -1,6 +1,6 @@
-package com.ctd.mall.micro.service.auth.resolver.client;
+package com.ctd.mall.framework.common.core.resolver.client;
 
-import com.ctd.mall.framework.auth.constant.security.SecurityConstants;
+import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import com.ctd.mall.framework.common.core.annotation.login.LoginClient;
 import com.ctd.mall.framework.common.core.exception.UnifiedException;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;

@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.auth.service.redis;
 
-import com.ctd.mall.framework.auth.constant.security.SecurityConstants;
+import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;

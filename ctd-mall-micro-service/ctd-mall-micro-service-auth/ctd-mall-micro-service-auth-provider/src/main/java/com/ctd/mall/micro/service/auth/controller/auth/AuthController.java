@@ -1,6 +1,5 @@
 package com.ctd.mall.micro.service.auth.controller.auth;
 
-import com.ctd.mall.framework.common.core.annotation.login.LoginUser;
 import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
 import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
 import com.ctd.mall.framework.common.core.vo.result.ResultVO;
@@ -52,19 +51,6 @@ public class AuthController
         this.customSocialUserDetailsService = customSocialUserDetailsService;
         this.customUserDetailsService = customUserDetailsService;
         this.clientDetailsService = clientDetailsService;
-    }
-
-    /**
-     * 获取登录用户的信息
-     *
-     * @param user user
-     * @return ResponseVO
-     */
-    @ApiOperation("获取登录用户的信息")
-    @PostMapping("loginUserInfo")
-    public ResponseVO loginUserInfo(@LoginUser UserVO user)
-    {
-        return ResponseVO.data(user);
     }
 
     /**
