@@ -7,8 +7,11 @@ import com.alibaba.fastjson.util.IOUtils;
 import com.alibaba.fastjson.util.TypeUtils;
 import com.ctd.mall.framework.auth.serializer.oauth.OAuth2AuthenticationSerializer;
 import com.ctd.mall.framework.auth.serializer.oauth.token.DefaultOauth2RefreshTokenSerializer;
+import com.ctd.mall.framework.auth.token.mobile.MobileAuthenticationToken;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
@@ -26,20 +29,25 @@ import java.util.Objects;
 public class FastJsonRedisTokenStoreSerializationStrategy implements RedisTokenStoreSerializationStrategy
 {
     private final static ParserConfig DEFAULT_REDIS_CONFIG = new ParserConfig();
+    private static final Logger LOGGER = LoggerFactory.getLogger(FastJsonRedisTokenStoreSerializationStrategy.class);
+    private static final int MAX_RETRIES_NUMBER = 5;
+    private static ThreadLocal<Integer> RETRIES_NUMBER = new ThreadLocal<>();
 
     static
     {
         DEFAULT_REDIS_CONFIG.setAutoTypeSupport(true);
-        init();
+        //设置fast json Json自动转换为Java对象
+        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+
     }
 
     static
     {
-        //设置fast json Json自动转换为Java对象
-        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+        init();
     }
 
-    protected static void init() {
+    protected static void init()
+    {
         //自定义oauth2序列化：DefaultOAuth2RefreshToken 没有setValue方法，会导致JSON序列化为null
         DEFAULT_REDIS_CONFIG.setAutoTypeSupport(true);
         DEFAULT_REDIS_CONFIG.putDeserializer(DefaultOAuth2RefreshToken.class, new DefaultOauth2RefreshTokenSerializer());
@@ -51,6 +59,9 @@ public class FastJsonRedisTokenStoreSerializationStrategy implements RedisTokenS
                 OAuth2Authentication.class);
         TypeUtils.addMapping("org.springframework.security.oauth2.provider.client.BaseClientDetails",
                 BaseClientDetails.class);
+        TypeUtils.addMapping("com.ctd.mall.framework.auth.token.mobile.MobileAuthenticationToken",
+                MobileAuthenticationToken.class);
+
     }
 
     /**
@@ -67,13 +78,21 @@ public class FastJsonRedisTokenStoreSerializationStrategy implements RedisTokenS
         AssertUtils.isNull(clazz, "clazz 不能为空");
         if (!AssertUtils.isNull(bytes))
         {
+            String input = new String(bytes, IOUtils.UTF8);
             try
             {
-                return JSON.parseObject(new String(bytes, IOUtils.UTF8), clazz, DEFAULT_REDIS_CONFIG);
+                T t = JSON.parseObject(input, clazz, DEFAULT_REDIS_CONFIG);
+                remove();
+                return t;
             } catch (Exception e)
             {
-                e.printStackTrace();
-                AssertUtils.msgDevelopment("redis 序列化 %s 对象出错.", clazz);
+                int count = getCount();
+                LOGGER.error("反序列化失败，重试第 {} 次，input = {}, clazz = {}", count, input, clazz);
+                if (count < MAX_RETRIES_NUMBER)
+                {
+                    LOGGER.info("反序列化失败，重试第 {} 次，input = {}, clazz = {}", count, input, clazz);
+                    deserialize(bytes, clazz);
+                }
             }
         }
         return null;
@@ -102,12 +121,19 @@ public class FastJsonRedisTokenStoreSerializationStrategy implements RedisTokenS
         {
             try
             {
-                return JSON.toJSONBytes(object, SerializerFeature.WriteClassName,
+                byte[] bytes = JSON.toJSONBytes(object, SerializerFeature.WriteClassName,
                         SerializerFeature.DisableCircularReferenceDetect);
+                remove();
+                return bytes;
             } catch (Exception ex)
             {
-                ex.printStackTrace();
-                AssertUtils.msgDevelopment("redis 序列化 %s 对象出错.", object);
+                int count = getCount();
+                LOGGER.error("反序列化失败，重试第 {} 次， object = {}", count, object);
+                if (count < MAX_RETRIES_NUMBER)
+                {
+                    LOGGER.info("反序列化失败，重试第 {} 次，  object = {}", count, object);
+                    serialize(object);
+                }
             }
         }
         return new byte[0];
@@ -127,5 +153,21 @@ public class FastJsonRedisTokenStoreSerializationStrategy implements RedisTokenS
             return data.getBytes(IOUtils.UTF8);
         }
         return new byte[0];
+    }
+
+    private static int getCount()
+    {
+        Integer count = RETRIES_NUMBER.get();
+        count = Objects.nonNull(count) ? ++count : 0;
+        RETRIES_NUMBER.set(count);
+        return count;
+    }
+
+    /**
+     * 删除
+     */
+    private static void remove()
+    {
+        RETRIES_NUMBER.remove();
     }
 }

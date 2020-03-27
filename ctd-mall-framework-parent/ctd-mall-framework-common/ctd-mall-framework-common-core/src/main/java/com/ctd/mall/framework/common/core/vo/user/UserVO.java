@@ -16,9 +16,11 @@ import java.util.List;
  */
 public class UserVO implements Serializable
 {
+    private static final long serialVersionUID = -8960027113388647737L;
     /**
      * id
      */
+    @JsonProperty(value = "id")
     @JSONField(name = "id")
     private String id;
 
@@ -39,66 +41,77 @@ public class UserVO implements Serializable
     /**
      *
      */
+    @JsonProperty(value = "nick_name")
     @JSONField(name = "nick_name")
     private String nickName;
 
     /**
      * headImgUrl
      */
+    @JsonProperty(value = "head_img_url")
     @JSONField(name = "head_img_url")
     private String headImgUrl;
 
     /**
      * mobile
      */
+    @JsonProperty(value = "mobile")
     @JSONField(name = "mobile")
     private String mobile;
 
     /**
      * sex
      */
+    @JsonProperty(value = "sex")
     @JSONField(name = "sex")
     private Integer sex;
 
     /**
      * enabled
      */
+    @JsonProperty(value = "enabled")
     @JSONField(name = "enabled")
     private Boolean enabled;
 
     /**
      * type
      */
+    @JsonProperty(value = "type")
     @JSONField(name = "type")
     private String type;
 
     /**
      * openId
      */
+    @JsonProperty(value = "open_id")
     @JSONField(name = "open_id")
     private String openId;
 
     /**
      * roles
      */
+    @JsonProperty(value = "roles")
     @JSONField(name = "roles")
     private List<RoleVO> roles;
 
     /**
      * roleId
      */
+    @JsonProperty(value = "role_ids")
     @JSONField(name = "role_ids")
     private List<String> roleIds;
 
     /**
      * oldPassword
      */
+    @JsonProperty(value = "old_pass_word")
     @JSONField(name = "old_pass_word")
     private String oldPassword;
 
     /**
      * newPassword
      */
+    @JsonProperty(value = "new_pass_word")
     @JSONField(name = "new_pass_word")
     private String newPassword;
 

@@ -1,6 +1,7 @@
 package com.ctd.mall.framework.common.core.vo.page;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,12 +35,14 @@ public class PageVO<T> implements Serializable
     /**
      * totalPage
      */
+    @JsonProperty(value = "total_page")
     @JSONField(name = "total_page")
     private Integer totalPage;
 
     /**
      * totalCount
      */
+    @JsonProperty(value = "total_count")
     @JSONField(name = "total_count")
     private Long totalCount;
 

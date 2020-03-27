@@ -3,6 +3,7 @@ package com.ctd.mall.framework.auth.vo.user.login;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.social.security.SocialUserDetails;
@@ -25,6 +26,7 @@ public class LoginUserVO extends UserVO implements SocialUserDetails
     /**
      * 权限集合
      */
+    @JsonProperty(value = "permissions")
     @JSONField(name = "permissions")
     private Set<String> permissions;
 
