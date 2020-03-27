@@ -192,7 +192,7 @@ public class UserManager
      */
     public User findByName(String username)
     {
-        AssertUtils.isNull(username, "username 不能为空");
+        AssertUtils.isNullToUser(username, "请输入用户名");
         return userRepository.findByUsername(username);
     }
 
@@ -206,5 +206,30 @@ public class UserManager
     {
         AssertUtils.isNullToUser(mobile, "请输入手机号");
         return userRepository.findByMobile(mobile);
+    }
+
+    /**
+     * findDetailsByUserId
+     *
+     * @param userId userId
+     * @return User
+     */
+    public User findByUserId(String userId)
+    {
+        AssertUtils.isNull(userId, "userId 不能为空");
+        return userRepository.findById(userId).orElse(null);
+    }
+
+    /**
+     * findDetailsByUserId
+     *
+     * @param userId userId
+     * @return User
+     */
+    public User findNonNullByUserId(String userId)
+    {
+        User user = findByUserId(userId);
+        AssertUtils.isNull(user, "userId = %s 用户不存在, 请核对.", userId);
+        return user;
     }
 }

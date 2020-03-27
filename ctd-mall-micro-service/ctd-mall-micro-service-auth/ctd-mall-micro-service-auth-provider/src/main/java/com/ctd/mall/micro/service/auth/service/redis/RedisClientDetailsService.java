@@ -1,12 +1,15 @@
 package com.ctd.mall.micro.service.auth.service.redis;
 
+import com.alibaba.fastjson.JSON;
 import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
+import com.ctd.mall.framework.redis.repository.RedisRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
+import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.util.CollectionUtils;
 
@@ -24,28 +27,26 @@ import java.util.Objects;
 public class RedisClientDetailsService extends JdbcClientDetailsService
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisClientDetailsService.class);
-    private RedisTemplate<String, Object> redisTemplate;
 
-    public RedisClientDetailsService(DataSource dataSource)
+    private final RedisRepository redisRepository;
+
+    public RedisClientDetailsService(DataSource dataSource, RedisRepository redisRepository)
     {
         super(dataSource);
+        this.redisRepository = redisRepository;
     }
 
-    public RedisTemplate<String, Object> getRedisTemplate()
-    {
-        return redisTemplate;
-    }
-
-    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate)
-    {
-        this.redisTemplate = redisTemplate;
-    }
 
     @Override
     public ClientDetails loadClientByClientId(String clientId)
     {
         // 先从redis获取
-        ClientDetails clientDetails = (ClientDetails) redisTemplate.opsForValue().get(clientRedisKey(clientId));
+        ClientDetails clientDetails = null;
+        String value = redisRepository.get(clientRedisKey(clientId));
+        if (StringUtils.isNotBlank(value))
+        {
+            clientDetails = JSON.parseObject(value, BaseClientDetails.class);
+        }
         if (Objects.isNull(clientDetails))
         {
             clientDetails = cacheAndGetClient(clientId);
@@ -69,14 +70,16 @@ public class RedisClientDetailsService extends JdbcClientDetailsService
             if (Objects.nonNull(clientDetails))
             {
                 // 写入redis缓存
-                redisTemplate.opsForValue().set(clientRedisKey(clientId), clientDetails);
+                redisRepository.setExpire(clientRedisKey(clientId), clientDetails, 1800);
                 LOGGER.info("缓存clientId:{},{}", clientId, clientDetails);
             }
         } catch (NoSuchClientException e)
         {
+            e.printStackTrace();
             LOGGER.error("clientId:{},{}", clientId, clientId);
         } catch (InvalidClientException e)
         {
+            e.printStackTrace();
             LOGGER.error("cacheAndGetClient-invalidClient:{}", clientId, e);
         }
         return clientDetails;
@@ -110,7 +113,7 @@ public class RedisClientDetailsService extends JdbcClientDetailsService
      */
     private void removeRedisCache(String clientId)
     {
-        redisTemplate.opsForValue().get(clientRedisKey(clientId));
+        redisRepository.del(clientRedisKey(clientId));
     }
 
     /**
@@ -125,7 +128,7 @@ public class RedisClientDetailsService extends JdbcClientDetailsService
             return;
         }
 
-        list.parallelStream().forEach(client -> redisTemplate.opsForValue().set(clientRedisKey(client.getClientId()), client));
+        list.parallelStream().forEach(client -> redisRepository.set(clientRedisKey(client.getClientId()), client));
     }
 
     /**

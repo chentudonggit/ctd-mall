@@ -1,7 +1,8 @@
 package com.ctd.mall.framework.auth.store.redis;
 
-import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import com.ctd.mall.framework.auth.properties.security.SecurityProperties;
+import com.ctd.mall.framework.auth.token.fastjson.serialization.FastJsonRedisTokenStoreSerializationStrategy;
+import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -16,7 +17,6 @@ import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator;
 import org.springframework.security.oauth2.provider.token.DefaultAuthenticationKeyGenerator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.JdkSerializationStrategy;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStoreSerializationStrategy;
 import org.springframework.util.ClassUtils;
@@ -47,7 +47,7 @@ public class CustomRedisTokenStore implements TokenStore
 
     private final RedisConnectionFactory connectionFactory;
     private AuthenticationKeyGenerator authenticationKeyGenerator = new DefaultAuthenticationKeyGenerator();
-    private RedisTokenStoreSerializationStrategy serializationStrategy = new JdkSerializationStrategy();
+    private RedisTokenStoreSerializationStrategy serializationStrategy = new FastJsonRedisTokenStoreSerializationStrategy();
 
     private String prefix = "";
 
@@ -105,7 +105,6 @@ public class CustomRedisTokenStore implements TokenStore
             {
                 storeAccessToken(accessToken, authentication);
             }
-
         }
         return accessToken;
     }
@@ -364,10 +363,13 @@ public class CustomRedisTokenStore implements TokenStore
      */
     private void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication, boolean isRenew)
     {
+        AssertUtils.isNull(token, "token 不能为空");
+        AssertUtils.isNull(authentication, "authentication 不能为空");
+        String value = token.getValue();
         byte[] serializedAccessToken = serialize(token);
         byte[] serializedAuth = serialize(authentication);
-        byte[] accessKey = serializeKey(ACCESS + token.getValue());
-        byte[] authKey = serializeKey(SecurityConstants.REDIS_TOKEN_AUTH + token.getValue());
+        byte[] accessKey = serializeKey(ACCESS + value);
+        byte[] authKey = serializeKey(SecurityConstants.REDIS_TOKEN_AUTH + value);
         byte[] authToAccessKey = serializeKey(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication));
         byte[] approvalKey = serializeKey(SecurityConstants.REDIS_UNAME_TO_ACCESS + getApprovalKey(authentication));
         byte[] clientId = serializeKey(SecurityConstants.REDIS_CLIENT_ID_TO_ACCESS + authentication.getOAuth2Request().getClientId());

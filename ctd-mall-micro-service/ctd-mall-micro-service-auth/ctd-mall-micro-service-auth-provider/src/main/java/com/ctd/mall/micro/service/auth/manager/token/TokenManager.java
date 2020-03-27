@@ -3,6 +3,7 @@ package com.ctd.mall.micro.service.auth.manager.token;
 import com.ctd.mall.framework.auth.token.mobile.MobileAuthenticationToken;
 import com.ctd.mall.framework.auth.utils.auth.AuthUtils;
 import com.ctd.mall.framework.auth.vo.client.ClientInfoVO;
+import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import com.ctd.mall.framework.common.core.holder.context.TenantContextHolder;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
@@ -74,22 +75,23 @@ public class TokenManager
     {
         AssertUtils.isNull(userName, "userName 不能为空");
         AssertUtils.isNull(passWord, "passWord 不能为空");
-        return setOAuth2AccessToken(request, new UsernamePasswordAuthenticationToken(userName, passWord));
+        return setOAuth2AccessToken(request, new UsernamePasswordAuthenticationToken(userName, passWord), SecurityConstants.USERNAME_GRANT_TYPE);
     }
 
     /**
      * setOAuth2AccessToken
      *
-     * @param request request
-     * @param token   token
+     * @param request   request
+     * @param token     token
+     * @param grantType grantType
      * @return OAuth2AccessToken
      */
-    public OAuth2AccessToken setOAuth2AccessToken(HttpServletRequest request, AbstractAuthenticationToken token)
+    public OAuth2AccessToken setOAuth2AccessToken(HttpServletRequest request, AbstractAuthenticationToken token, String grantType)
     {
         AssertUtils.isNull(request, "request 不能为空");
         AssertUtils.isNull(token, "token 不能为空");
         Authentication authentication = authenticationManager.authenticate(token);
-        OAuth2Request oAuth2Request = setOAuth2Request(request);
+        OAuth2Request oAuth2Request = setOAuth2Request(request, grantType);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
         OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
@@ -100,16 +102,17 @@ public class TokenManager
     /**
      * setOAuth2Request
      *
-     * @param request request
+     * @param request   request
+     * @param grantType grantType
      * @return OAuth2Request
      */
-    public OAuth2Request setOAuth2Request(HttpServletRequest request)
+    public OAuth2Request setOAuth2Request(HttpServletRequest request, String grantType)
     {
         ClientDetails clientDetails = nonNullClientDetail(request);
         String clientId = clientDetails.getClientId();
         //保存租户id
         TenantContextHolder.setTenant(clientId);
-        TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(), "customer");
+        TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(), grantType);
         return tokenRequest.createOAuth2Request(clientDetails);
     }
 
@@ -180,6 +183,6 @@ public class TokenManager
     {
         AssertUtils.isNullToUser(mobile, "请输入手机号");
         AssertUtils.isNullToUser(code, "请输入验证码");
-        return setOAuth2AccessToken(request, new MobileAuthenticationToken(mobile, code, true));
+        return setOAuth2AccessToken(request, new MobileAuthenticationToken(mobile, code, true), SecurityConstants.MOBILE_GRANT_TYPE);
     }
 }

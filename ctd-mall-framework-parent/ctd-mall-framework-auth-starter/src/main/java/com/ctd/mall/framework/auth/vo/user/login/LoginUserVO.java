@@ -21,8 +21,7 @@ import java.util.Set;
  */
 public class LoginUserVO extends UserVO implements SocialUserDetails
 {
-    private static final long serialVersionUID = -4205301328875081133L;
-
+    private static final long serialVersionUID = 2845676515016887521L;
     /**
      * 权限集合
      */

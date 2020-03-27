@@ -47,20 +47,17 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver
             if (Objects.nonNull(request))
             {
                 String userId = request.getHeader(SecurityConstants.USER_ID_HEADER);
-                String username = request.getHeader(SecurityConstants.USER_HEADER);
-                String roles = request.getHeader(SecurityConstants.ROLE_HEADER);
-                AssertUtils.isNullToUser(username, "服务器异常，请联系管理员。");
+                AssertUtils.isNullToUser(userId, "服务器异常，请联系管理员。");
                 UserVO user;
                 if (loginUser.allInfo())
                 {
                     //详细信息
-                    user = userService.findByUserName(username);
+                    user = userService.findDetailsByUserId(userId);
                 } else
                 {
                     //简略信息
                     user = new UserVO();
                     user.setId(userId);
-                    user.setUsername(username);
                 }
                 return user;
             }

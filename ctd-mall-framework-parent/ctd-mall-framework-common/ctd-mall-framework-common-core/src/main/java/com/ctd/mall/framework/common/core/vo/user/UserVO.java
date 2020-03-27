@@ -2,6 +2,7 @@ package com.ctd.mall.framework.common.core.vo.user;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.ctd.mall.framework.common.core.vo.role.RoleVO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,8 +16,6 @@ import java.util.List;
  */
 public class UserVO implements Serializable
 {
-    private static final long serialVersionUID = 5178238928560769099L;
-
     /**
      * id
      */
@@ -26,12 +25,14 @@ public class UserVO implements Serializable
     /**
      * username
      */
+    @JsonProperty(value = "user_name")
     @JSONField(name = "user_name")
     private String username;
 
     /**
      *
      */
+    @JsonProperty(value = "pass_word")
     @JSONField(name = "pass_word")
     private String password;
 

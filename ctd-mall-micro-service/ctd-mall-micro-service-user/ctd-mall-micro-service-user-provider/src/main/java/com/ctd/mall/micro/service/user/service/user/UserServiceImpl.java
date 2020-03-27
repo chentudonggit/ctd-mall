@@ -82,4 +82,16 @@ public class UserServiceImpl implements UserService
     {
         return BeanHelper.convert(userManager.findByMobile(mobile), UserVO.class);
     }
+
+    /**
+     * findDetailsByUserId
+     *
+     * @param userId userId
+     * @return UserVO
+     */
+    @Override
+    public UserVO findDetailsByUserId(String userId)
+    {
+        return BeanHelper.convert(userManager.findByUserId(userId), UserVO.class);
+    }
 }

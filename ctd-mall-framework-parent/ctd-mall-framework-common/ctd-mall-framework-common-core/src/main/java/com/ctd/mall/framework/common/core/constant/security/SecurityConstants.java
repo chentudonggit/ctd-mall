@@ -155,6 +155,21 @@ public interface SecurityConstants
     String MOBILE_TOKEN_URL = "/oauth/mobile/token";
 
     /**
+     * 手机登录
+     */
+    String MOBILE_GRANT_TYPE = "mobile";
+
+    /**
+     * openId
+     */
+    String OPEN_ID_GRANT_TYPE = "openId";
+
+    /**
+     * 用户名
+     */
+    String USERNAME_GRANT_TYPE = "username";
+
+    /**
      * 登出URL
      */
     String LOGOUT_URL = "/oauth/remove/token";

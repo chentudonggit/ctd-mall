@@ -13,12 +13,12 @@
     <dependencies>
         <dependency>
             <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-micro-service-auth-consumer</artifactId>
+            <artifactId>ctd-mall-framework-auth-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-auth-starter</artifactId>
+            <artifactId>ctd-mall-micro-service-auth-consumer</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

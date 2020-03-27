@@ -11,6 +11,8 @@ import org.springframework.security.web.server.authentication.ServerAuthenticati
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * Oauth2AuthSuccessHandler
  *
@@ -32,7 +34,7 @@ public class Oauth2AuthSuccessHandler implements ServerAuthenticationSuccessHand
         ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate()
                 .headers(h -> {
                     h.add(SecurityConstants.USER_ID_HEADER, String.valueOf(userId));
-                    h.add(SecurityConstants.USER_HEADER, username);
+                    h.add(SecurityConstants.USER_HEADER, new String(username.getBytes(StandardCharsets.UTF_8)));
                     h.add(SecurityConstants.TENANT_HEADER, clientId);
                     h.add(SecurityConstants.ROLE_HEADER, CollectionUtil.join(authentication.getAuthorities(), ","));
                 })

@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
@@ -47,6 +48,7 @@ public class TokenStoreConfig
         this.jwtAccessTokenConverter = jwtAccessTokenConverter;
     }
 
+    @Primary
     @Bean
     @ConditionalOnMissingBean(TokenStore.class)
     public TokenStore tokenStore()
@@ -64,5 +66,10 @@ public class TokenStoreConfig
             return authJwtTokenStore.tokenStore(jwtAccessTokenConverter);
         }
         return authRedisTokenStore.tokenStore();
+    }
+
+    public TokenStore getTokenStore()
+    {
+        return tokenStore();
     }
 }

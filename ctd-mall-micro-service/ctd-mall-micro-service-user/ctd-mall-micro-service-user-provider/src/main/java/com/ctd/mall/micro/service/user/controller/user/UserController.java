@@ -69,7 +69,7 @@ public class UserController
      */
     @ApiOperation("获取登录用户的信息")
     @PostMapping("loginUserInfo")
-    public ResponseVO loginUserInfo(@LoginUser UserVO user)
+    public ResponseVO loginUserInfo(@LoginUser(allInfo = true) UserVO user)
     {
         return ResponseVO.data(user);
     }

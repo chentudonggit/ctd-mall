@@ -1,10 +1,10 @@
 package com.ctd.mall.micro.service.auth.service.redis.authorization;
 
-import org.springframework.data.redis.core.RedisTemplate;
+import com.alibaba.fastjson.JSON;
+import com.ctd.mall.framework.redis.repository.RedisRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * RedisAuthorizationCodeServices
@@ -15,17 +15,13 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCodeServices
 {
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisRepository redisRepository;
 
-    public RedisTemplate<String, Object> getRedisTemplate()
+    public RedisAuthorizationCodeServices(RedisRepository redisRepository)
     {
-        return redisTemplate;
+        this.redisRepository = redisRepository;
     }
 
-    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate)
-    {
-        this.redisTemplate = redisTemplate;
-    }
 
     /**
      * 替换JdbcAuthorizationCodeServices的存储策略
@@ -34,15 +30,20 @@ public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCode
     @Override
     protected void store(String code, OAuth2Authentication authentication)
     {
-        redisTemplate.opsForValue().set(redisKey(code), authentication, 10, TimeUnit.MINUTES);
+        redisRepository.setExpire(redisKey(code), authentication,10);
     }
 
     @Override
     protected OAuth2Authentication remove(final String code)
     {
         String codeKey = redisKey(code);
-        OAuth2Authentication token = (OAuth2Authentication) redisTemplate.opsForValue().get(codeKey);
-        this.redisTemplate.delete(codeKey);
+        String tokenValue = redisRepository.get(codeKey);
+        OAuth2Authentication token = null;
+        if(StringUtils.isNotBlank(tokenValue))
+        {
+            token = JSON.parseObject(tokenValue, OAuth2Authentication.class);
+            this.redisRepository.del(codeKey);
+        }
         return token;
     }
 

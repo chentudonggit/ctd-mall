@@ -64,9 +64,20 @@ public interface UserService
     UserVO findByUserName(@RequestParam("userName") String userName);
 
     /**
+     * findByMobile
+     *
      * @param mobile mobile
      * @return UserVO
      */
     @RequestMapping("findByMobile")
     UserVO findByMobile(@RequestParam("mobile") String mobile);
+
+    /**
+     * findDetailsByUserId
+     *
+     * @param userId userId
+     * @return UserVO
+     */
+    @RequestMapping("findDetailsByUserId")
+    UserVO findDetailsByUserId(@RequestParam("userId") String userId);
 }

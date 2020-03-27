@@ -1,5 +1,7 @@
 package com.ctd.mall.framework.redis.repository;
 
+import com.alibaba.fastjson.JSON;
+import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +12,6 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -39,21 +40,17 @@ public class RedisRepository
      */
     private static final StringRedisSerializer STRING_SERIALIZER = new StringRedisSerializer();
 
-    /**
-     * value 序列化
-     */
-    private static final JdkSerializationRedisSerializer OBJECT_SERIALIZER = new JdkSerializationRedisSerializer();
 
     /**
      * Spring Redis Template
      */
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
-    public RedisRepository(RedisTemplate<String, Object> redisTemplate)
+    public RedisRepository(RedisTemplate<String, String> redisTemplate)
     {
         this.redisTemplate = redisTemplate;
         this.redisTemplate.setKeySerializer(STRING_SERIALIZER);
-        this.redisTemplate.setValueSerializer(OBJECT_SERIALIZER);
+        this.redisTemplate.setValueSerializer(STRING_SERIALIZER);
     }
 
     /**
@@ -67,7 +64,7 @@ public class RedisRepository
     /**
      * 获取 RedisTemplate对象
      */
-    public RedisTemplate<String, Object> getRedisTemplate()
+    public RedisTemplate<String, String> getRedisTemplate()
     {
         return redisTemplate;
     }
@@ -110,7 +107,7 @@ public class RedisRepository
         redisTemplate.execute((RedisCallback<Long>) connection -> {
             RedisSerializer<String> serializer = getRedisSerializer();
             byte[] keys = serializer.serialize(key);
-            byte[] values = OBJECT_SERIALIZER.serialize(value);
+            byte[] values = STRING_SERIALIZER.serialize(JSON.toJSONString(value));
             connection.setEx(keys, time, values);
             return 1L;
         });
@@ -130,8 +127,11 @@ public class RedisRepository
             for (int i = 0; i < keys.length; i++)
             {
                 byte[] bKeys = serializer.serialize(keys[i]);
-                byte[] bValues = OBJECT_SERIALIZER.serialize(values[i]);
-                connection.setEx(bKeys, time, bValues);
+                byte[] bValues = STRING_SERIALIZER.serialize(JSON.toJSONString(values[i]));
+                if (!AssertUtils.nonNull(bKeys) && AssertUtils.nonNull(bValues))
+                {
+                    connection.setEx(bKeys, time, bValues);
+                }
             }
             return 1L;
         });
@@ -151,8 +151,11 @@ public class RedisRepository
             for (int i = 0; i < keys.length; i++)
             {
                 byte[] bKeys = serializer.serialize(keys[i]);
-                byte[] bValues = OBJECT_SERIALIZER.serialize(values[i]);
-                connection.set(bKeys, bValues);
+                byte[] bValues = STRING_SERIALIZER.serialize(JSON.toJSONString(values[i]));
+                if (!AssertUtils.nonNull(bKeys) && AssertUtils.nonNull(bValues))
+                {
+                    connection.set(bKeys, bValues);
+                }
             }
             return 1L;
         });
@@ -170,10 +173,14 @@ public class RedisRepository
         redisTemplate.execute((RedisCallback<Long>) connection -> {
             RedisSerializer<String> serializer = getRedisSerializer();
             byte[] keys = serializer.serialize(key);
-            byte[] values = OBJECT_SERIALIZER.serialize(value);
-            connection.set(keys, values);
-            LOGGER.debug("[redisTemplate redis]放入 缓存  url:{}", key);
-            return 1L;
+            byte[] values = STRING_SERIALIZER.serialize(JSON.toJSONString(value));
+            if (AssertUtils.nonNull(keys) && AssertUtils.nonNull(values))
+            {
+                connection.set(keys, values);
+                LOGGER.debug("[redisTemplate redis]放入 缓存  url:{}", key);
+                return 1L;
+            }
+            return 0L;
         });
     }
 
@@ -233,16 +240,18 @@ public class RedisRepository
      * @param key the key
      * @return the string
      */
-    public Object get(final String key)
+    public String get(final String key)
     {
-        Object resultStr = redisTemplate.execute((RedisCallback<Object>) connection -> {
+        return redisTemplate.execute((RedisCallback<String>) connection -> {
             RedisSerializer<String> serializer = getRedisSerializer();
             byte[] keys = serializer.serialize(key);
-            byte[] values = connection.get(keys);
-            return OBJECT_SERIALIZER.deserialize(values);
+            if (AssertUtils.nonNull(keys))
+            {
+                LOGGER.debug("[redisTemplate redis]取出 缓存  url:{} ", key);
+                return STRING_SERIALIZER.deserialize(connection.get(keys));
+            }
+            return null;
         });
-        LOGGER.debug("[redisTemplate redis]取出 缓存  url:{} ", key);
-        return resultStr;
     }
 
 
@@ -264,9 +273,10 @@ public class RedisRepository
                 for (String key : keys)
                 {
                     byte[] bKeys = serializer.serialize(key);
-                    byte[] bValues = connection.get(bKeys);
-                    Object value = OBJECT_SERIALIZER.deserialize(bValues);
-                    maps.put(key, value);
+                    if (AssertUtils.nonNull(bKeys))
+                    {
+                        maps.put(key, STRING_SERIALIZER.deserialize(connection.get(bKeys)));
+                    }
                 }
             }
             return maps;
@@ -351,6 +361,10 @@ public class RedisRepository
      */
     public long dbSize()
     {
+        if (Objects.isNull(redisTemplate))
+        {
+            return 0L;
+        }
         return redisTemplate.execute(RedisServerCommands :: dbSize);
     }
 
@@ -426,7 +440,7 @@ public class RedisRepository
      *
      * @return the list operations
      */
-    public ListOperations<String, Object> opsForList()
+    public ListOperations<String, String> opsForList()
     {
         return redisTemplate.opsForList();
     }
@@ -438,7 +452,7 @@ public class RedisRepository
      * @param value the value
      * @return the long
      */
-    public Long leftPush(String key, Object value)
+    public Long leftPush(String key, String value)
     {
         return opsForList().leftPush(key, value);
     }
@@ -461,7 +475,7 @@ public class RedisRepository
      * @param value the value
      * @return the long
      */
-    public Long in(String key, Object value)
+    public Long in(String key, String value)
     {
         return opsForList().rightPush(key, value);
     }
@@ -497,7 +511,7 @@ public class RedisRepository
      * @param i     the
      * @param value the value
      */
-    public void remove(String key, long i, Object value)
+    public void remove(String key, long i, String value)
     {
         opsForList().remove(key, i, value);
     }
@@ -509,7 +523,7 @@ public class RedisRepository
      * @param index the index
      * @param value the value
      */
-    public void set(String key, long index, Object value)
+    public void set(String key, long index, String value)
     {
         opsForList().set(key, index, value);
     }
@@ -522,7 +536,7 @@ public class RedisRepository
      * @param end   the end
      * @return the list
      */
-    public List<Object> getList(String key, int start, int end)
+    public List<String> getList(String key, int start, int end)
     {
         return opsForList().range(key, start, end);
     }
@@ -546,7 +560,7 @@ public class RedisRepository
      * @param index the index
      * @param value the value
      */
-    public void insert(String key, long index, Object value)
+    public void insert(String key, long index, String value)
     {
         opsForList().set(key, index, value);
     }

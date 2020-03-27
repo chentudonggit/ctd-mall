@@ -1,5 +1,6 @@
 package com.ctd.mall.micro.service.auth.config.authorization;
 
+import com.ctd.mall.framework.auth.config.store.TokenStoreConfig;
 import com.ctd.mall.micro.service.auth.service.redis.RedisClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -15,7 +16,6 @@ import org.springframework.security.oauth2.provider.code.RandomValueAuthorizatio
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import javax.annotation.Resource;
@@ -31,17 +31,15 @@ import java.util.Objects;
  */
 @Configuration
 @EnableAuthorizationServer
-@AutoConfigureAfter(AuthorizationServerEndpointsConfigurer.class)
+@AutoConfigureAfter({TokenStoreConfig.class, AuthorizationServerEndpointsConfigurer.class})
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter
 {
+    private final TokenStoreConfig tokenStoreConfig;
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Resource
     private UserDetailsService userDetailsService;
-
-    @Autowired
-    private TokenStore tokenStore;
 
     @Autowired(required = false)
     private JwtAccessTokenConverter jwtAccessTokenConverter;
@@ -57,6 +55,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private RandomValueAuthorizationCodeServices authorizationCodeServices;
+
+    public AuthorizationServerConfig(TokenStoreConfig tokenStoreConfig)
+    {
+        this.tokenStoreConfig = tokenStoreConfig;
+    }
 
     /**
      * 配置身份认证器，配置认证方式，TokenStore，TokenGranter，OAuth2RequestFactory
@@ -79,7 +82,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 endpoints.accessTokenConverter(jwtAccessTokenConverter);
             }
         }
-        endpoints.tokenStore(tokenStore)
+        endpoints.tokenStore(tokenStoreConfig.getTokenStore())
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
                 .authorizationCodeServices(authorizationCodeServices)

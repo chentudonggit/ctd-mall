@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.FeignFormatterRegistrar;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.format.FormatterRegistry;
 
 /**
@@ -27,6 +28,7 @@ public class FeignConfigRegistrar implements FeignFormatterRegistrar
      *
      * @return HttpMessageConverters
      */
+    @Primary
     @Bean
     public HttpMessageConverters fastJsonHttpMessageConverters()
     {

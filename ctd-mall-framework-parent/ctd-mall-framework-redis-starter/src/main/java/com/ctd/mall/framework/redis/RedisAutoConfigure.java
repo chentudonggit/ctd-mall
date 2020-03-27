@@ -49,16 +49,14 @@ public class RedisAutoConfigure
      * @return RedisTemplate<String, Object>
      */
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory)
+    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory)
     {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
-
         RedisSerializer stringSerializer = new StringRedisSerializer();
-        RedisSerializer redisObjectSerializer = new RedisObjectSerializer();
         redisTemplate.setKeySerializer(stringSerializer);
         redisTemplate.setHashKeySerializer(stringSerializer);
-        redisTemplate.setValueSerializer(redisObjectSerializer);
+        redisTemplate.setValueSerializer(stringSerializer);
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
@@ -71,7 +69,7 @@ public class RedisAutoConfigure
      */
     @Bean
     @ConditionalOnMissingBean
-    public RedisRepository redisRepository(RedisTemplate<String, Object> redisTemplate)
+    public RedisRepository redisRepository(RedisTemplate<String, String> redisTemplate)
     {
         return new RedisRepository(redisTemplate);
     }

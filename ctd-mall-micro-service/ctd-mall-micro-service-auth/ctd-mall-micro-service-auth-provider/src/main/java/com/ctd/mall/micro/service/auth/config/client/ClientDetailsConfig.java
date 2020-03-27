@@ -1,9 +1,12 @@
 package com.ctd.mall.micro.service.auth.config.client;
 
+import com.ctd.mall.framework.redis.repository.RedisRepository;
 import com.ctd.mall.micro.service.auth.service.redis.RedisClientDetailsService;
 import com.ctd.mall.micro.service.auth.service.redis.authorization.RedisAuthorizationCodeServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 
@@ -18,12 +21,15 @@ import javax.sql.DataSource;
  * @since 1.0
  */
 @Configuration
+@Import(RedisRepository.class)
 public class ClientDetailsConfig
 {
     @Resource
     private DataSource dataSource;
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private RedisRepository redisRepository;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     /**
      * 声明 ClientDetails实现
@@ -31,16 +37,18 @@ public class ClientDetailsConfig
     @Bean
     public RedisClientDetailsService clientDetailsService()
     {
-        RedisClientDetailsService clientDetailsService = new RedisClientDetailsService(dataSource);
-        clientDetailsService.setRedisTemplate(redisTemplate);
-        return clientDetailsService;
+        return new RedisClientDetailsService(dataSource, redisRepository);
     }
 
     @Bean
     public RandomValueAuthorizationCodeServices authorizationCodeServices()
     {
-        RedisAuthorizationCodeServices redisAuthorizationCodeServices = new RedisAuthorizationCodeServices();
-        redisAuthorizationCodeServices.setRedisTemplate(redisTemplate);
-        return redisAuthorizationCodeServices;
+        return new RedisAuthorizationCodeServices(redisRepository);
+    }
+
+    @Bean
+    public RedisRepository redisRepository()
+    {
+        return new RedisRepository(redisTemplate);
     }
 }
