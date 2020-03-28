@@ -3,6 +3,7 @@ package com.ctd.mall.micro.service.user.service.menu;
 import com.ctd.mall.framework.common.core.bean.BeanHelper;
 import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
 import com.ctd.mall.framework.common.core.vo.menu.MenuVO;
+import com.ctd.mall.framework.common.core.vo.page.PageVO;
 import com.ctd.mall.micro.service.user.manager.menu.MenuManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,5 +46,26 @@ public class MenuServiceImpl implements MenuService
     {
         return BeanHelper.convert(menuManager.save(id, parentId, name, url, path, method,
                 tenantId, hidden, type, sort), MenuVO.class);
+    }
+
+    /**
+     * findAll
+     *
+     * @param parentId parentId
+     * @param name     name
+     * @param sort     sort
+     * @param type     type
+     * @param hidden   hidden
+     * @param method   method
+     * @param tenantId tenantId
+     * @param page     page
+     * @param size     size
+     * @return PageVO<MenuVO>
+     */
+    @Override
+    public PageVO<MenuVO> findAll(String parentId, String name, Integer sort, Integer type, Boolean hidden, MethodEnum method,
+                                  String tenantId, Integer page, Integer size)
+    {
+        return menuManager.findAll(parentId, name, sort, type, hidden, method, tenantId, page, size);
     }
 }

@@ -41,15 +41,19 @@ public enum MethodEnum
         switch (key)
         {
             case "Get":
+            case "GET":
             case "get":
                 return Get;
             case "Post":
+            case "POST":
             case "post":
                 return Post;
             case "Put":
+            case "PUT":
             case "put":
                 return Put;
             case "Delete":
+            case "DELETE":
             case "delete":
                 return Delete;
             default:

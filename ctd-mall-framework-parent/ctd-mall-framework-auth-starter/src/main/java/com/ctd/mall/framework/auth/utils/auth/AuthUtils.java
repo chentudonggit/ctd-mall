@@ -3,6 +3,7 @@ package com.ctd.mall.framework.auth.utils.auth;
 import com.ctd.mall.framework.auth.vo.client.ClientInfoVO;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -42,10 +43,10 @@ public final class AuthUtils
     public static String extractToken(HttpServletRequest request)
     {
         String token = extractHeaderToken(request);
-        if (Objects.isNull(token))
+        if (StringUtils.isBlank(token))
         {
             token = request.getParameter(OAuth2AccessToken.ACCESS_TOKEN);
-            if (Objects.isNull(token))
+            if (StringUtils.isBlank(token))
             {
                 LOGGER.debug("Token not found in request parameters.  Not an OAuth2 request.");
             }
@@ -64,8 +65,8 @@ public final class AuthUtils
         Enumeration<String> headers = request.getHeaders(TOKEN_HEADER);
         while (headers.hasMoreElements())
         {
-            String value = headers.nextElement();
-            if ((value.toLowerCase().startsWith(OAuth2AccessToken.BEARER_TYPE)))
+            String value = headers.nextElement(); 
+            if ((value.startsWith(OAuth2AccessToken.BEARER_TYPE)))
             {
                 String authHeaderValue = value.substring(OAuth2AccessToken.BEARER_TYPE.length()).trim();
                 int commaIndex = authHeaderValue.indexOf(',');

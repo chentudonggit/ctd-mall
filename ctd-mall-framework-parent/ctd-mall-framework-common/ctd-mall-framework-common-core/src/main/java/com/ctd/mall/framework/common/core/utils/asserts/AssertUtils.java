@@ -117,6 +117,19 @@ public final class AssertUtils
     }
 
     /**
+     * 判断为空， 返回 param
+     *
+     * @param obj   obj
+     * @param param param
+     * @param <T>   <T>
+     * @return T
+     */
+    public static <T> T isNullReturnParam(Object obj, T param)
+    {
+        return isNull(obj) ? param : (T) obj;
+    }
+
+    /**
      * msgDevelopment
      *
      * @param msg msg
@@ -152,6 +165,7 @@ public final class AssertUtils
      * %%	百分比类型	％(%特殊字符%%才能显示%)
      * %n	换行符	不举例(基本用不到)
      * %tx	日期与时间类型（x代表不同的日期与时间转换符)	不举例(基本用不到)
+     *
      * @param msg msg
      * @return String
      */

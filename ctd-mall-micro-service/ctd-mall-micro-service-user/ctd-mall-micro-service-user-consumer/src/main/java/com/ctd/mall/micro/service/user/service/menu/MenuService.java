@@ -2,6 +2,7 @@ package com.ctd.mall.micro.service.user.service.menu;
 
 import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
 import com.ctd.mall.framework.common.core.vo.menu.MenuVO;
+import com.ctd.mall.framework.common.core.vo.page.PageVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -41,4 +42,29 @@ public interface MenuService
                 @RequestParam("hidden") Boolean hidden,
                 @RequestParam("type") Integer type,
                 @RequestParam("sort") Integer sort);
+
+    /**
+     * findAll
+     *
+     * @param parentId parentId
+     * @param name     name
+     * @param sort     sort
+     * @param type     type
+     * @param hidden   hidden
+     * @param method   method
+     * @param tenantId tenantId
+     * @param page     page
+     * @param size     size
+     * @return PageVO<MenuVO>
+     */
+    @RequestMapping("findAll")
+    PageVO<MenuVO> findAll(@RequestParam("parentId") String parentId,
+                           @RequestParam("name") String name,
+                           @RequestParam("sort") Integer sort,
+                           @RequestParam("type") Integer type,
+                           @RequestParam("hidden") Boolean hidden,
+                           @RequestParam("method") MethodEnum method,
+                           @RequestParam("tenantId") String tenantId,
+                           @RequestParam("page") Integer page,
+                           @RequestParam("size") Integer size);
 }

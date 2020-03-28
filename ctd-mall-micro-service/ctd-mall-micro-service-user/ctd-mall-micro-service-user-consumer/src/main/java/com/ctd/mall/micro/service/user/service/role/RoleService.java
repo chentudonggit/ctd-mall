@@ -1,5 +1,6 @@
 package com.ctd.mall.micro.service.user.service.role;
 
+import com.ctd.mall.framework.common.core.vo.page.PageVO;
 import com.ctd.mall.framework.common.core.vo.role.RoleVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,4 +27,19 @@ public interface RoleService
     RoleVO save(@RequestParam("id") String id,
                 @RequestParam("code") String code,
                 @RequestParam("name") String name);
+
+    /**
+     * findAll
+     *
+     * @param code code
+     * @param name name
+     * @param page page
+     * @param size size
+     * @return PageVO<RoleVO>
+     */
+    @RequestMapping("findAll")
+    PageVO<RoleVO> findAll(@RequestParam("code") String code,
+                           @RequestParam("name") String name,
+                           @RequestParam("page") Integer page,
+                           @RequestParam("size") Integer size);
 }

@@ -2,6 +2,7 @@ package com.ctd.mall.micro.service.user.repository.user;
 
 import com.ctd.mall.micro.service.user.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
  * UserRepository
@@ -10,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2020/3/8 12:05
  * @since 1.0
  */
-public interface UserRepository extends JpaRepository<User, String>
+public interface UserRepository extends JpaRepository<User, String>, JpaSpecificationExecutor<User>
 {
     /**
      * 获取用户

@@ -1,6 +1,7 @@
 package com.ctd.mall.micro.service.user.service.user;
 
 import com.ctd.mall.framework.common.core.bean.BeanHelper;
+import com.ctd.mall.framework.common.core.vo.page.PageVO;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
 import com.ctd.mall.micro.service.user.domain.user.User;
 import com.ctd.mall.micro.service.user.manager.user.UserManager;
@@ -93,5 +94,24 @@ public class UserServiceImpl implements UserService
     public UserVO findDetailsByUserId(String userId)
     {
         return BeanHelper.convert(userManager.findByUserId(userId), UserVO.class);
+    }
+
+    /**
+     * findAll
+     *
+     * @param username username
+     * @param nickname nickname
+     * @param mobile   mobile
+     * @param sex      sex
+     * @param enabled  enabled
+     * @param type     type
+     * @param page     page
+     * @param size     size
+     * @return PageVO<UserVO>
+     */
+    @Override
+    public PageVO<UserVO> findAll(String username, String nickname, String mobile, Integer sex, Boolean enabled, String type, Integer page, Integer size)
+    {
+        return userManager.findAll(username, nickname, mobile, sex, enabled, type, page, size);
     }
 }

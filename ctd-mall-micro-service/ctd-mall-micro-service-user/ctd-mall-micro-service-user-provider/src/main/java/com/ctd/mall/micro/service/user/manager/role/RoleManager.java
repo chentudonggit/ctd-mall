@@ -1,12 +1,23 @@
 package com.ctd.mall.micro.service.user.manager.role;
 
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
+import com.ctd.mall.framework.common.core.vo.page.PageVO;
+import com.ctd.mall.framework.common.core.vo.role.RoleVO;
+import com.ctd.mall.framework.data.jpa.utils.JpaSqlUtils;
 import com.ctd.mall.micro.service.user.domain.role.Role;
 import com.ctd.mall.micro.service.user.repository.role.RoleRepository;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -132,5 +143,39 @@ public class RoleManager
         {
             AssertUtils.msgUser(msg, args);
         }
+    }
+
+    /**
+     * 查询所有
+     *
+     * @param code code
+     * @param name name
+     * @param page page
+     * @param size size
+     * @return PageVO<RoleVO>
+     */
+    public PageVO<RoleVO> findAll(String code, String name, Integer page, Integer size)
+    {
+        Specification<Role> specification = (Root<Role> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) ->
+        {
+            //创建封装条件的集合
+            List<Predicate> predicates = new ArrayList<>();
+            if (StringUtils.isNotBlank(code))
+            {
+                predicates.add(criteriaBuilder.equal(root.get("code").as(String.class), code));
+            }
+            if (StringUtils.isNotBlank(name))
+            {
+                predicates.add(criteriaBuilder.like(root.get("name").as(String.class), JpaSqlUtils.appendSqlLike(name)));
+            }
+            // 将所有条件用 and 联合起来
+            if (!predicates.isEmpty())
+            {
+                criteriaQuery.where(criteriaBuilder.and(predicates.<Predicate>toArray(new Predicate[0])));
+            }
+            return criteriaQuery.getRestriction();
+        };
+        return JpaSqlUtils.convert(roleRepository.findAll(specification,
+                JpaSqlUtils.initPageable(page, size, Sort.Direction.DESC, JpaSqlUtils.UPDATE_TIME)), RoleVO.class);
     }
 }

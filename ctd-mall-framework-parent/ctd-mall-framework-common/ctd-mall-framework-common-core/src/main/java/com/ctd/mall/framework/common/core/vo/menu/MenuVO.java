@@ -2,8 +2,10 @@ package com.ctd.mall.framework.common.core.vo.menu;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -20,73 +22,93 @@ public class MenuVO implements Serializable
     /**
      * id
      */
+    @JsonProperty(value = "id")
+    @JSONField(name = "id")
     private String id;
 
     /**
      * parentId
      */
+    @JsonProperty(value = "parent_id")
     @JSONField(name = "parent_id")
     private String parentId;
 
     /**
      * name
      */
+    @JsonProperty(value = "name")
     @JSONField(name = "name")
     private String name;
 
     /**
-     *
+     * url
      */
+    @JsonProperty(value = "url")
     @JSONField(name = "url")
     private String url;
 
     /**
      * path
      */
+    @JsonProperty(value = "path")
     @JSONField(name = "path")
     private String path;
 
     /**
      * sort
      */
+    @JsonProperty(value = "sort")
     @JSONField(name = "sort")
     private Integer sort;
 
     /**
      * type
      */
+    @JsonProperty(value = "type")
     @JSONField(name = "type")
     private Integer type;
 
     /**
      * hidden
      */
+    @JsonProperty(value = "hidden")
     @JSONField(name = "hidden")
     private Boolean hidden;
 
     /**
      * method
      */
+    @JsonProperty(value = "method")
     @JSONField(name = "method")
     private MethodEnum method;
 
     /**
      * roleIds
      */
+    @JsonProperty(value = "role_ids")
     @JSONField(name = "role_ids")
     private Set<String> roleIds;
 
     /**
      * menuIds
      */
+    @JsonProperty(value = "menu_ids")
     @JSONField(name = "menu_ids")
     private Set<String> menuIds;
 
     /**
      * tenantId
      */
+    @JsonProperty(value = "tenant_id")
     @JSONField(name = "tenant_id")
     private String tenantId;
+
+    /**
+     * 创建时间
+     */
+    @JsonProperty(value = "create_time")
+    @JSONField(name = "create_time")
+    private Date createTime;
 
     public String getId()
     {
@@ -208,6 +230,16 @@ public class MenuVO implements Serializable
         this.tenantId = tenantId;
     }
 
+    public Date getCreateTime()
+    {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime)
+    {
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString()
     {
@@ -224,6 +256,7 @@ public class MenuVO implements Serializable
                 ", roleIds=" + roleIds +
                 ", menuIds=" + menuIds +
                 ", tenantId='" + tenantId + '\'' +
+                ", createTime=" + createTime +
                 '}';
     }
 }

@@ -3,7 +3,9 @@ package com.ctd.mall.micro.service.user.manager.user;
 import com.ctd.mall.framework.common.core.bean.BeanHelper;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
+import com.ctd.mall.framework.common.core.vo.page.PageVO;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
+import com.ctd.mall.framework.data.jpa.utils.JpaSqlUtils;
 import com.ctd.mall.micro.service.user.domain.user.User;
 import com.ctd.mall.micro.service.user.manager.password.PassWordManager;
 import com.ctd.mall.micro.service.user.repository.user.UserRepository;
@@ -11,11 +13,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.*;
 
 
 /**
@@ -231,5 +237,76 @@ public class UserManager
         User user = findByUserId(userId);
         AssertUtils.isNull(user, "userId = %s 用户不存在, 请核对.", userId);
         return user;
+    }
+
+    /**
+     * 查询所有
+     *
+     * @param username username
+     * @param nickname nickname
+     * @param mobile   mobile
+     * @param sex      sex
+     * @param enabled  enabled
+     * @param type     type
+     * @param page     page
+     * @param size     size
+     * @return PageVO<UserVO>
+     */
+    public PageVO<UserVO> findAll(String username, String nickname, String mobile, Integer sex, Boolean enabled,
+                                  String type, Integer page, Integer size)
+    {
+        return JpaSqlUtils.convert(userRepository.findAll(specification(username, nickname, mobile, sex, enabled, type),
+                JpaSqlUtils.initPageable(page, size, Sort.Direction.DESC, JpaSqlUtils.UPDATE_TIME)), UserVO.class);
+    }
+
+
+    /**
+     * 多条件查询
+     *
+     * @param username username
+     * @param nickname nickname
+     * @param mobile   mobile
+     * @param sex      sex
+     * @param enabled  enabled
+     * @param type     type
+     * @return Specification<User>
+     */
+    public Specification<User> specification(String username, String nickname, String mobile, Integer sex, Boolean enabled, String type)
+    {
+        return (Root<User> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) ->
+        {
+            //创建封装条件的集合
+            List<Predicate> predicates = new ArrayList<>();
+            if (StringUtils.isNotBlank(nickname))
+            {
+                predicates.add(criteriaBuilder.equal(root.get("nickname").as(String.class), JpaSqlUtils.appendSqlLike(nickname)));
+            }
+            if (StringUtils.isNotBlank(username))
+            {
+                predicates.add(criteriaBuilder.like(root.get("username").as(String.class), JpaSqlUtils.appendSqlLike(username)));
+            }
+            if (StringUtils.isNotBlank(mobile))
+            {
+                predicates.add(criteriaBuilder.like(root.get("mobile").as(String.class), JpaSqlUtils.appendSqlLike(mobile)));
+            }
+            if (Objects.nonNull(sex))
+            {
+                predicates.add(criteriaBuilder.equal(root.get("sex").as(Integer.class), sex));
+            }
+            if (Objects.nonNull(enabled))
+            {
+                predicates.add(criteriaBuilder.equal(root.get("enabled").as(Boolean.class), enabled));
+            }
+            if (StringUtils.isNotBlank(type))
+            {
+                predicates.add(criteriaBuilder.equal(root.get("type").as(String.class), type));
+            }
+            // 将所有条件用 and 联合起来
+            if (!predicates.isEmpty())
+            {
+                criteriaQuery.where(criteriaBuilder.and(predicates.<Predicate>toArray(new Predicate[0])));
+            }
+            return criteriaQuery.getRestriction();
+        };
     }
 }

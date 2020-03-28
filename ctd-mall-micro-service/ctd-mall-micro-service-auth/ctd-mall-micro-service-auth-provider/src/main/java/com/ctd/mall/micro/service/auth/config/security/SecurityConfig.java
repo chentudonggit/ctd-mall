@@ -1,7 +1,7 @@
 package com.ctd.mall.micro.service.auth.config.security;
 
-import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import com.ctd.mall.framework.common.core.config.password.security.DefaultPasswordConfig;
+import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
 import com.ctd.mall.micro.service.auth.config.authorization.mobile.MobileAuthenticationSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,9 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 
+import javax.annotation.Resource;
 import java.util.Objects;
 
 /**
@@ -44,6 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
     @Autowired
     private MobileAuthenticationSecurityConfig mobileAuthenticationSecurityConfig;
+
+    @Resource
+    private LogoutHandler oauthLogoutHandler;
 
     /**
      * 这一步的配置是必不可少的，否则SpringBoot会自动配置一个AuthenticationManager,覆盖掉内存中的用户
@@ -80,6 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .logoutUrl(SecurityConstants.LOGOUT_URL)
                 .logoutSuccessUrl(SecurityConstants.LOGIN_PAGE)
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+                .addLogoutHandler(oauthLogoutHandler)
                 .clearAuthentication(true)
                 .and()
                 .apply(mobileAuthenticationSecurityConfig)

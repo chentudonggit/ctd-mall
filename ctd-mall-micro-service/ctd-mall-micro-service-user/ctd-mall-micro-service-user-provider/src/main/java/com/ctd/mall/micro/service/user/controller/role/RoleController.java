@@ -1,10 +1,12 @@
 package com.ctd.mall.micro.service.user.controller.role;
 
+import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
 import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
 import com.ctd.mall.framework.common.core.vo.role.RoleVO;
 import com.ctd.mall.micro.service.user.service.role.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,5 +42,21 @@ public class RoleController
     public ResponseVO save(@RequestBody RoleVO r)
     {
         return ResponseVO.data(roleService.save(r.getId(), r.getCode(), r.getName()));
+    }
+
+    /**
+     * 获取所有角色
+     *
+     * @param map map
+     * @return ResponseVO
+     */
+    @ApiOperation("获取所有角色")
+    @PostMapping("findAll")
+    public ResponseVO findAll(@RequestBody ModelMap map)
+    {
+        return ResponseVO.data(roleService.findAll(ParamUtils.getParam(map, "code"),
+                ParamUtils.getParam(map, "name"),
+                ParamUtils.getParam(map, "page"),
+                ParamUtils.getParam(map, "size")));
     }
 }

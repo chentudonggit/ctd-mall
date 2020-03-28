@@ -1,10 +1,13 @@
 package com.ctd.mall.micro.service.auth.handler.logout.oauth;
 
 import com.ctd.mall.framework.auth.utils.auth.AuthUtils;
+import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
@@ -14,6 +17,7 @@ import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -28,6 +32,8 @@ public class OauthLogoutHandler implements LogoutHandler
     private static final Logger LOGGER = LoggerFactory.getLogger(OauthLogoutHandler.class);
     @Autowired
     private TokenStore tokenStore;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -53,6 +59,13 @@ public class OauthLogoutHandler implements LogoutHandler
                 LOGGER.info("remove existingAccessToken! {}", existingAccessToken);
                 tokenStore.removeAccessToken(existingAccessToken);
             }
+        }
+        try
+        {
+            ResponseVO.responseWriter(objectMapper, response, HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value());
+        } catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 }

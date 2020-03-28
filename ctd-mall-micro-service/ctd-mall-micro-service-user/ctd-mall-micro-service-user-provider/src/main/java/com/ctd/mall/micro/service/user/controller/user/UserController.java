@@ -2,11 +2,13 @@ package com.ctd.mall.micro.service.user.controller.user;
 
 import com.ctd.mall.framework.common.core.annotation.login.LoginUser;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
+import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
 import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
 import com.ctd.mall.micro.service.user.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +52,7 @@ public class UserController
         return ResponseVO.data(userService.save(u.getId(),
                 u.getUsername(),
                 u.getPassword(),
-                u.getNickName(),
+                u.getNickname(),
                 u.getHeadImgUrl(),
                 u.getMobile(),
                 u.getSex(),
@@ -72,5 +74,25 @@ public class UserController
     public ResponseVO loginUserInfo(@LoginUser(allInfo = true) UserVO user)
     {
         return ResponseVO.data(user);
+    }
+
+    /**
+     * findAll
+     *
+     * @param map map
+     * @return ResponseVO
+     */
+    @ApiOperation("获取所有用户")
+    @PostMapping("findAll")
+    public ResponseVO findAll(@RequestBody ModelMap map)
+    {
+        return ResponseVO.data(userService.findAll(ParamUtils.getParam(map, "username"),
+                ParamUtils.getParam(map, "nick_name"),
+                ParamUtils.getParam(map, "mobile"),
+                ParamUtils.getParam(map, "sex"),
+                ParamUtils.getParam(map, "enabled"),
+                ParamUtils.getParam(map, "type"),
+                ParamUtils.getParam(map, "page"),
+                ParamUtils.getParam(map, "size")));
     }
 }

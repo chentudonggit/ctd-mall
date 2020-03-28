@@ -5,6 +5,7 @@ import com.ctd.mall.framework.common.core.vo.role.RoleVO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class UserVO implements Serializable
      */
     @JsonProperty(value = "nick_name")
     @JSONField(name = "nick_name")
-    private String nickName;
+    private String nickname;
 
     /**
      * headImgUrl
@@ -115,6 +116,13 @@ public class UserVO implements Serializable
     @JSONField(name = "new_pass_word")
     private String newPassword;
 
+    /**
+     * 创建时间
+     */
+    @JsonProperty(value = "create_time")
+    @JSONField(name = "create_time")
+    private Date createTime;
+
     public String getId()
     {
         return id;
@@ -145,14 +153,14 @@ public class UserVO implements Serializable
         this.password = password;
     }
 
-    public String getNickName()
+    public String getNickname()
     {
-        return nickName;
+        return nickname;
     }
 
-    public void setNickName(String nickName)
+    public void setNickname(String nickname)
     {
-        this.nickName = nickName;
+        this.nickname = nickname;
     }
 
     public String getHeadImgUrl()
@@ -255,6 +263,16 @@ public class UserVO implements Serializable
         this.newPassword = newPassword;
     }
 
+    public Date getCreateTime()
+    {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime)
+    {
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString()
     {
@@ -262,7 +280,7 @@ public class UserVO implements Serializable
                 "id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", nickName='" + nickName + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", headImgUrl='" + headImgUrl + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", sex=" + sex +
@@ -270,9 +288,10 @@ public class UserVO implements Serializable
                 ", type='" + type + '\'' +
                 ", openId='" + openId + '\'' +
                 ", roles=" + roles +
-                ", roleIds='" + roleIds + '\'' +
+                ", roleIds=" + roleIds +
                 ", oldPassword='" + oldPassword + '\'' +
                 ", newPassword='" + newPassword + '\'' +
+                ", createTime=" + createTime +
                 '}';
     }
 }

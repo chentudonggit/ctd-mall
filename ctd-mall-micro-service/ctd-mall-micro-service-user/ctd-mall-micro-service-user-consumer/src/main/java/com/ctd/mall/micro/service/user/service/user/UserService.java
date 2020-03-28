@@ -1,5 +1,6 @@
 package com.ctd.mall.micro.service.user.service.user;
 
+import com.ctd.mall.framework.common.core.vo.page.PageVO;
 import com.ctd.mall.framework.common.core.vo.user.UserVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,4 +81,27 @@ public interface UserService
      */
     @RequestMapping("findDetailsByUserId")
     UserVO findDetailsByUserId(@RequestParam("userId") String userId);
+
+    /**
+     * findAll
+     *
+     * @param username username
+     * @param nickname nickname
+     * @param mobile   mobile
+     * @param sex      sex
+     * @param enabled  enabled
+     * @param type     type
+     * @param page     page
+     * @param size     size
+     * @return PageVO<UserVO>
+     */
+    @RequestMapping("findAll")
+    PageVO<UserVO> findAll(@RequestParam("username") String username,
+                           @RequestParam("nickname") String nickname,
+                           @RequestParam("mobile") String mobile,
+                           @RequestParam("sex") Integer sex,
+                           @RequestParam("enabled") Boolean enabled,
+                           @RequestParam("type") String type,
+                           @RequestParam("page") Integer page,
+                           @RequestParam("size") Integer size);
 }

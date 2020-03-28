@@ -2,6 +2,7 @@ package com.ctd.mall.micro.service.user.repository.role;
 
 import com.ctd.mall.micro.service.user.domain.role.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
  * RoleRepository
@@ -10,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2020/3/14 16:20
  * @since 1.0
  */
-public interface RoleRepository extends JpaRepository<Role, String>
+public interface RoleRepository extends JpaRepository<Role, String>, JpaSpecificationExecutor<Role>
 {
     /**
      * findByCodeAndName
