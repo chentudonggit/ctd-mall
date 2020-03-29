@@ -4,6 +4,7 @@ import com.ctd.mall.framework.common.core.enums.status.StatusEnum;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ import java.util.Date;
 @Table(name = "tbl_user_role_binding")
 @DynamicUpdate
 @DynamicInsert
+@Where(clause = "status = 'ENABLE'")
 public class UserRoleBinding implements Serializable
 {
     private static final long serialVersionUID = 2132084825956667214L;
@@ -49,7 +51,7 @@ public class UserRoleBinding implements Serializable
      * 状态
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "varchar(15) default 'Enable' ")
+    @Column(name = "status", columnDefinition = "varchar(15) default 'ENABLE' ")
     private StatusEnum status;
 
     /**

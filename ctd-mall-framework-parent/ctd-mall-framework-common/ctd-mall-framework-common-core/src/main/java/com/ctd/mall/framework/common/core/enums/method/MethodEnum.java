@@ -14,23 +14,22 @@ public enum MethodEnum
     /**
      *
      */
-    Get,
+    GET,
 
     /**
      * Post
      */
-    Post,
+    POST,
 
     /**
      * Put
      */
-    Put,
+    PUT,
 
     /**
      * Delete
      */
-    Delete;
-
+    DELETE;
     public static MethodEnum value(String key)
     {
         if (StringUtils.isBlank(key))
@@ -43,19 +42,19 @@ public enum MethodEnum
             case "Get":
             case "GET":
             case "get":
-                return Get;
+                return GET;
             case "Post":
             case "POST":
             case "post":
-                return Post;
+                return POST;
             case "Put":
             case "PUT":
             case "put":
-                return Put;
+                return PUT;
             case "Delete":
             case "DELETE":
             case "delete":
-                return Delete;
+                return DELETE;
             default:
                 return null;
         }

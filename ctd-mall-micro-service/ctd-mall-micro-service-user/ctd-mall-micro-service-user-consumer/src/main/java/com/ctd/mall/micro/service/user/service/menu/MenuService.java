@@ -6,6 +6,8 @@ import com.ctd.mall.framework.common.core.vo.page.PageVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
  * MenuService
  *
@@ -67,4 +69,13 @@ public interface MenuService
                            @RequestParam("tenantId") String tenantId,
                            @RequestParam("page") Integer page,
                            @RequestParam("size") Integer size);
+
+    /**
+     * findAllTree
+     *
+     * @param id id
+     * @return List<MenuVO>
+     */
+    @RequestMapping("findAllTree")
+    List<MenuVO> findAllTree(@RequestParam("id") String id);
 }

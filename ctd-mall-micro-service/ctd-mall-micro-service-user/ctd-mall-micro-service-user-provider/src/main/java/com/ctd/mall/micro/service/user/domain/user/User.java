@@ -21,7 +21,7 @@ import java.util.Date;
 @Table(name = "tbl_user")
 @DynamicUpdate
 @DynamicInsert
-@Where(clause = "status = 'Enable'")
+@Where(clause = "status = 'ENABLE'")
 public class User implements Serializable
 {
     private static final long serialVersionUID = 2919460614871362160L;
@@ -93,7 +93,7 @@ public class User implements Serializable
      * 状态
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "varchar(15) default 'Enable' ")
+    @Column(name = "status", columnDefinition = "varchar(15) default 'ENABLE' ")
     private StatusEnum status;
 
     /**

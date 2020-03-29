@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.List;
+
 /**
  * MenuServiceImpl
  *
@@ -67,5 +69,17 @@ public class MenuServiceImpl implements MenuService
                                   String tenantId, Integer page, Integer size)
     {
         return menuManager.findAll(parentId, name, sort, type, hidden, method, tenantId, page, size);
+    }
+
+    /**
+     * findAllTree
+     *
+     * @param id id
+     * @return List<MenuVO>
+     */
+    @Override
+    public List<MenuVO> findAllTree(String id)
+    {
+        return menuManager.findAllTree(id);
     }
 }

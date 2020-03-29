@@ -1,5 +1,6 @@
 package com.ctd.mall.micro.service.user.manager.menu;
 
+import com.ctd.mall.framework.common.core.bean.BeanHelper;
 import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
 import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
@@ -17,10 +18,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * MenuManager
@@ -183,7 +182,7 @@ public class MenuManager
             }
             if (StringUtils.isNotBlank(name))
             {
-                predicates.add(criteriaBuilder.equal(root.get("name").as(String.class), JpaSqlUtils.appendSqlLike(name)));
+                predicates.add(criteriaBuilder.like(root.get("name").as(String.class), JpaSqlUtils.appendSqlLike(name)));
             }
             if (StringUtils.isNotBlank(tenantId))
             {
@@ -212,5 +211,155 @@ public class MenuManager
             }
             return criteriaQuery.getRestriction();
         };
+    }
+
+    /**
+     * findAllTree
+     *
+     * @param id id
+     * @return List<MenuVO>
+     */
+    public List<MenuVO> findAllTree(String id)
+    {
+        List<MenuVO> menuVos = new ArrayList<>();
+        if (StringUtils.isNotBlank(id))
+        {
+            Menu menu = findNonNullById(id);
+            MenuVO convert = BeanHelper.convert(menu, MenuVO.class);
+            menuVos.add(convert);
+            //获取下级
+            findAllByParentId(menu.getId(), menuVos);
+            List<MenuVO> setTree = setTree(menuVos);
+            if(setTree.isEmpty())
+            {
+                setTree.add(convert);
+            }
+            return setTree;
+        } else
+        {
+            menuVos.addAll(BeanHelper.convert(menuRepository.findAll(Sort.by(Sort.DEFAULT_DIRECTION, "sort")), MenuVO.class));
+            return setAllTree(menuVos);
+        }
+    }
+
+    /**
+     * setAllTree
+     *
+     * @param menuVos menuVos
+     * @return List<MenuVO>
+     */
+    private List<MenuVO> setAllTree(List<MenuVO> menuVos)
+    {
+        List<MenuVO> result = new ArrayList<>();
+        if (AssertUtils.nonNull(menuVos))
+        {
+            for (MenuVO menuVO : menuVos)
+            {
+                if (StringUtils.isBlank(menuVO.getParentId()))
+                {
+                    menuVO.setChildren(childrenNode(menuVO.getId(), menuVos));
+                    result.add(menuVO);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * setTree
+     *
+     * @param menuVos menuVos
+     * @return List<MenuVO>
+     */
+    private List<MenuVO> setTree(List<MenuVO> menuVos)
+    {
+        List<MenuVO> result = new ArrayList<>();
+        if (AssertUtils.nonNull(menuVos))
+        {
+            Map<String, MenuVO> menuVoMap = menuVos.stream().collect(Collectors.toMap(MenuVO :: getId, a -> a, (k1, k2) -> (k1)));
+            Map<String, String> temp = new HashMap<>(menuVos.size());
+            for (MenuVO menuVo : menuVos)
+            {
+                //父节点
+                String parentId = menuVo.getParentId();
+                if (StringUtils.isNotBlank(parentId) && menuVoMap.containsKey(parentId))
+                {
+                    MenuVO menuVO = menuVoMap.get(parentId);
+                    List<MenuVO> children = menuVO.getChildren();
+                    if (Objects.isNull(children))
+                    {
+                        children = new ArrayList<>();
+                    }
+                    children.add(menuVo);
+                    menuVO.setChildren(children);
+                    String id = menuVo.getId();
+                    if ((!temp.containsKey(parentId)) && (!temp.containsKey(id)))
+                    {
+                        temp.put(parentId, parentId);
+                        result.add(menuVO);
+                    }
+                    temp.put(id, id);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * childrenNode
+     *
+     * @param id      id
+     * @param menuVos menuVos
+     * @return List<MenuVO>
+     */
+    private List<MenuVO> childrenNode(String id, List<MenuVO> menuVos)
+    {
+        List<MenuVO> result = new ArrayList<>();
+        for (MenuVO children : menuVos)
+        {
+            if (id.equals(children.getParentId()))
+            {
+                children.setChildren(childrenNode(children.getId(), menuVos));
+                result.add(children);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 查询所有的下级的下级
+     *
+     * @param parentId parentId
+     * @param menusVO  menusVO
+     */
+    private void findAllByParentId(String parentId, List<MenuVO> menusVO)
+    {
+        if (StringUtils.isBlank(parentId))
+        {
+            return;
+        }
+        setMenuVos(menusVO, menuRepository.findAllByParentIdOrderBySortAsc(parentId));
+    }
+
+    /**
+     * 封装menus 所有的下级 到 menuVOs
+     *
+     * @param menuVos menuVos
+     * @param menus   menus
+     */
+    private void setMenuVos(List<MenuVO> menuVos, List<Menu> menus)
+    {
+        if (Objects.isNull(menuVos))
+        {
+            AssertUtils.msgDevelopment("menuVos 不能为空");
+        }
+        if (!menus.isEmpty())
+        {
+            menuVos.addAll(BeanHelper.convert(menus, MenuVO.class));
+            for (Menu menu : menus)
+            {
+                findAllByParentId(menu.getId(), menuVos);
+            }
+        }
     }
 }

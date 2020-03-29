@@ -2,10 +2,12 @@ package com.ctd.mall.framework.common.core.vo.menu;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -99,6 +101,7 @@ public class MenuVO implements Serializable
     /**
      * tenantId
      */
+    @JsonInclude
     @JsonProperty(value = "tenant_id")
     @JSONField(name = "tenant_id")
     private String tenantId;
@@ -109,6 +112,13 @@ public class MenuVO implements Serializable
     @JsonProperty(value = "create_time")
     @JSONField(name = "create_time")
     private Date createTime;
+
+    /**
+     * children
+     */
+    @JsonProperty(value = "children")
+    @JSONField(name = "children")
+    private List<MenuVO> children;
 
     public String getId()
     {
@@ -240,6 +250,16 @@ public class MenuVO implements Serializable
         this.createTime = createTime;
     }
 
+    public List<MenuVO> getChildren()
+    {
+        return children;
+    }
+
+    public void setChildren(List<MenuVO> children)
+    {
+        this.children = children;
+    }
+
     @Override
     public String toString()
     {
@@ -257,6 +277,7 @@ public class MenuVO implements Serializable
                 ", menuIds=" + menuIds +
                 ", tenantId='" + tenantId + '\'' +
                 ", createTime=" + createTime +
+                ", children=" + children +
                 '}';
     }
 }

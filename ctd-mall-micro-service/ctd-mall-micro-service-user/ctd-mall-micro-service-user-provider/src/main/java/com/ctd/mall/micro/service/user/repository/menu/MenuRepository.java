@@ -4,6 +4,8 @@ import com.ctd.mall.micro.service.user.domain.menu.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.List;
+
 /**
  * MenuRepository
  *
@@ -20,4 +22,12 @@ public interface MenuRepository extends JpaRepository<Menu, String>, JpaSpecific
      * @return Menu
      */
     Menu findByName(String name);
+
+    /**
+     * 获取所有的下级
+     *
+     * @param parentId parentId
+     * @return List<Menu>
+     */
+    List<Menu> findAllByParentIdOrderBySortAsc(String parentId);
 }

@@ -8,10 +8,7 @@ import com.ctd.mall.micro.service.user.service.menu.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * MenuController
@@ -65,5 +62,18 @@ public class MenuController
                 ParamUtils.getParam(map, "tenantId"),
                 ParamUtils.getParam(map, "page"),
                 ParamUtils.getParam(map, "size")));
+    }
+
+    /**
+     * 获取所有的菜单，并封装树状结构
+     *
+     * @param id id
+     * @return ResponseVO
+     */
+    @ApiOperation("获取所有的菜单，并封装树状结构")
+    @GetMapping("findAllTree")
+    public ResponseVO findAllTree(String id)
+    {
+        return ResponseVO.data(menuService.findAllTree(id));
     }
 }

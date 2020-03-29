@@ -22,7 +22,7 @@ import java.util.Date;
 @Table(name = "tbl_menu")
 @DynamicUpdate
 @DynamicInsert
-@Where(clause = "status = 'Enable'")
+@Where(clause = "status = 'ENABLE'")
 public class Menu implements Serializable
 {
     private static final long serialVersionUID = -9208261293231161370L;
@@ -63,7 +63,7 @@ public class Menu implements Serializable
      * method
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "method", columnDefinition = "varchar(15) default 'Get' ")
+    @Column(name = "method", columnDefinition = "varchar(15) default 'GET' ")
     private MethodEnum method;
 
     /**
@@ -94,7 +94,7 @@ public class Menu implements Serializable
      * 状态
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "varchar(15) default 'Enable' ")
+    @Column(name = "status", columnDefinition = "varchar(15) default 'ENABLE' ")
     private StatusEnum status;
 
     /**

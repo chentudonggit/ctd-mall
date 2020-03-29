@@ -14,12 +14,12 @@ public enum StatusEnum
     /**
      * 启用
      */
-    Enable(0, "启用"),
+    ENABLE(0, "启用"),
 
     /**
      * 禁用
      */
-    Disable(1, "禁用");
+    DISABLE(1, "禁用");
 
     /**
      * code
@@ -67,9 +67,9 @@ public enum StatusEnum
         switch (key)
         {
             case 1:
-                return StatusEnum.Enable;
+                return StatusEnum.ENABLE;
             case 0:
-                return StatusEnum.Disable;
+                return StatusEnum.DISABLE;
             default:
                 return null;
         }

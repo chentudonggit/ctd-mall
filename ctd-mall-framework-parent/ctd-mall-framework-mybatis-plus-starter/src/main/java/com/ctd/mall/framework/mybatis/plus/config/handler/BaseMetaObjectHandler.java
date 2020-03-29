@@ -26,7 +26,7 @@ public class BaseMetaObjectHandler implements MetaObjectHandler
         Object parentId = this.getFieldValByName("parentId", metaObject);
         if (Objects.isNull(status))
         {
-            this.setFieldValByName("status", StatusEnum.Enable.getCode(), metaObject);
+            this.setFieldValByName("status", StatusEnum.ENABLE.getCode(), metaObject);
         }
         if (Objects.isNull(parentId))
         {

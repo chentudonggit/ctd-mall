@@ -1,11 +1,13 @@
 package com.ctd.mall.micro.service.user.config.web.mvc;
 
+import com.ctd.framework.web.converter.jackson.JacksonHttpMessageConverter;
 import com.ctd.mall.framework.common.core.resolver.client.ClientArgumentResolver;
 import com.ctd.mall.micro.service.user.resolver.token.TokenArgumentResolver;
 import com.ctd.mall.micro.service.user.service.user.UserService;
 import com.mall.framework.swagger.config.SwaggerWebMvcConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 
 import java.util.List;
@@ -33,5 +35,11 @@ public class WebMvcConfig extends SwaggerWebMvcConfig
         argumentResolvers.add(new TokenArgumentResolver(userService));
         //注入应用信息
         argumentResolvers.add(new ClientArgumentResolver());
+    }
+
+    @Override
+    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        super.configureMessageConverters(converters);
+        converters.add(new JacksonHttpMessageConverter());
     }
 }
