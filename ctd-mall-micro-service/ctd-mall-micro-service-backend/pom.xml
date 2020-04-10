@@ -10,18 +10,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ctd-mall-micro-service-backend</artifactId>
-
-
+    <dependencies>
+        <dependency>
+            <groupId>com.ctd.mall</groupId>
+            <artifactId>ctd-mall-framework-web-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
     <build>
-        <defaultGoal>compile</defaultGoal>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring-boot-maven-plugin.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-maven-plugin.version}</version>
+            </plugin>
+        </plugins>
     </build>
 </project>
