@@ -1,4 +1,4 @@
-package com.ctd.mall.micro.service.auth.enums.validate.code.cache;
+package com.ctd.mall.micro.service.common.enums.validate.code.cache;
 
 /**
  * ValidateCodeCacheEnum

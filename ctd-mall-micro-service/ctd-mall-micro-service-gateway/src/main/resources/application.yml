@@ -121,6 +121,7 @@ ctd:
         /authenticate/css/**,
         /authenticate/images/**,
         /authenticate/js/**,
+        /authenticate/wx/**,
         /api-user/users-anon/**,
         /authenticate/login/login,
         /login/login,

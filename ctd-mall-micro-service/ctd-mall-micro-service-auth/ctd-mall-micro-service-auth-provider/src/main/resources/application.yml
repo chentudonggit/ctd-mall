@@ -57,6 +57,12 @@ encrypt:
     secret: zlt!@#$
     alias: zlt
 
+tencent:
+  wx:
+    app_id: wxed9954c01bb89b47
+    app_secret: a7482517235173ddb4083788de60b90e
+    redirect_url: http://guli.shop/api/ucenter/wx/callback
+
 eureka:
   instance:
     hostname: 192.168.1.107 #172.16.146.183

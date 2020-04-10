@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.auth.properties.validate.code;
 
-import com.ctd.mall.micro.service.auth.enums.validate.code.cache.ValidateCodeCacheEnum;
+import com.ctd.mall.micro.service.common.enums.validate.code.cache.ValidateCodeCacheEnum;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.Objects;
