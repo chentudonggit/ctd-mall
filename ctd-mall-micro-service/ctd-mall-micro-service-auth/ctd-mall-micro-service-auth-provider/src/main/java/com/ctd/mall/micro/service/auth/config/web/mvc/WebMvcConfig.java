@@ -3,11 +3,11 @@ package com.ctd.mall.micro.service.auth.config.web.mvc;
 import com.ctd.mall.framework.common.core.resolver.client.ClientArgumentResolver;
 import com.ctd.mall.micro.service.auth.resolver.token.TokenArgumentResolver;
 import com.ctd.mall.micro.service.user.client.user.UserClient;
+import com.mall.framework.swagger.config.SwaggerWebMvcConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * @since 1.0
  */
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurationSupport
+public class WebMvcConfig extends SwaggerWebMvcConfig
 {
     @Lazy
     @Autowired
