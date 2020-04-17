@@ -27,7 +27,7 @@ logging:
 spring:
   profiles: production
   datasource:
-    url: jdbc:mysql://192.168.1.107:3306/mall-user?characterEncoding=utf8&autoReconnect=true&useUnicode=true&useSSL=false
+    url: jdbc:mysql://192.168.1.107:3306/base-data?characterEncoding=utf8&autoReconnect=true&useUnicode=true&useSSL=false
     username: root
     password: hm159357
 #    url: jdbc:mysql://iot.ghome.ink:5200/oauth-center?characterEncoding=utf8&autoReconnect=true&useUnicode=true&useSSL=false

@@ -42,7 +42,7 @@
             <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ctd.sprongboot</groupId>
+            <groupId>com.ctd.springboot</groupId>
             <artifactId>ctd-springboot-mysql-starter</artifactId>
             <version>${ctd-springboot.version}</version>
         </dependency>
