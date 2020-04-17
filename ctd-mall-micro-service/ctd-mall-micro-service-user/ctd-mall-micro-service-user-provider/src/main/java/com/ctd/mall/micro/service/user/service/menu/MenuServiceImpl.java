@@ -1,9 +1,9 @@
 package com.ctd.mall.micro.service.user.service.menu;
 
-import com.ctd.mall.framework.common.core.bean.BeanHelper;
-import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
-import com.ctd.mall.framework.common.core.vo.menu.MenuVO;
-import com.ctd.mall.framework.common.core.vo.page.PageVO;
+import com.ctd.springboot.common.core.bean.BeanHelper;
+import com.ctd.springboot.common.core.enums.method.MethodEnum;
+import com.ctd.springboot.common.core.vo.menu.MenuVO;
+import com.ctd.springboot.common.core.vo.page.PageVO;
 import com.ctd.mall.micro.service.user.manager.menu.MenuManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;

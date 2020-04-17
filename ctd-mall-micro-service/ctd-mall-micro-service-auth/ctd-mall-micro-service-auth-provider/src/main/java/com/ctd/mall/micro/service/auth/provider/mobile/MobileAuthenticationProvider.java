@@ -1,8 +1,8 @@
 package com.ctd.mall.micro.service.auth.provider.mobile;
 
-import com.ctd.mall.framework.auth.token.mobile.MobileAuthenticationToken;
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
-import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
+import com.ctd.springboot.auth.token.mobile.MobileAuthenticationToken;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.utils.param.ParamUtils;
 import com.ctd.mall.micro.service.auth.config.validate.code.ValidateCodeCacheConfig;
 import com.ctd.mall.micro.service.auth.service.user.CustomUserDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;

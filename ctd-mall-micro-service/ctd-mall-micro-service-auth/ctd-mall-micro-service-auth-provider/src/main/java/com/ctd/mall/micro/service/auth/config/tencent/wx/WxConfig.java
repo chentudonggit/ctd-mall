@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.auth.config.tencent.wx;
 
-import com.ctd.mall.framework.common.core.constant.tencent.TencentConstants;
+import com.ctd.springboot.common.core.constant.tencent.TencentConstants;
 import com.ctd.mall.micro.service.auth.properties.tencent.wx.WxProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

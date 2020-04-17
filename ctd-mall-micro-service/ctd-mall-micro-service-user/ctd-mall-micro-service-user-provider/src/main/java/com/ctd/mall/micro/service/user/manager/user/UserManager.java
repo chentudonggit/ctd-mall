@@ -1,11 +1,11 @@
 package com.ctd.mall.micro.service.user.manager.user;
 
-import com.ctd.mall.framework.common.core.bean.BeanHelper;
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
-import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
-import com.ctd.mall.framework.common.core.vo.page.PageVO;
-import com.ctd.mall.framework.common.core.vo.user.UserVO;
-import com.ctd.mall.framework.data.jpa.utils.JpaSqlUtils;
+import com.ctd.springboot.common.core.bean.BeanHelper;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.utils.param.ParamUtils;
+import com.ctd.springboot.common.core.vo.page.PageVO;
+import com.ctd.springboot.common.core.vo.user.UserVO;
+import com.ctd.springboot.data.jpa.utils.JpaSqlUtils;
 import com.ctd.mall.micro.service.user.domain.user.User;
 import com.ctd.mall.micro.service.user.manager.password.PassWordManager;
 import com.ctd.mall.micro.service.user.repository.user.UserRepository;

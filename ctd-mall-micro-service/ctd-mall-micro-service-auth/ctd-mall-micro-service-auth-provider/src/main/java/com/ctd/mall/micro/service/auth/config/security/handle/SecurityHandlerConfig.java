@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.auth.config.security.handle;
 
-import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
+import com.ctd.springboot.common.core.vo.response.ResponseVO;
 import com.ctd.mall.micro.service.auth.handler.logout.oauth.OauthLogoutHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

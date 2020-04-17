@@ -1,7 +1,7 @@
 package com.ctd.mall.micro.service.auth.service.redis.authorization;
 
 import com.alibaba.fastjson.JSON;
-import com.ctd.mall.framework.redis.repository.RedisRepository;
+import com.ctd.springboot.redis.repository.RedisRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;

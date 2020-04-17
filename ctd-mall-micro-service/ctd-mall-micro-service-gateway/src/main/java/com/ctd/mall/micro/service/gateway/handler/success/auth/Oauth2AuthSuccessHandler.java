@@ -1,8 +1,8 @@
 package com.ctd.mall.micro.service.gateway.handler.success.auth;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
-import com.ctd.mall.framework.common.core.vo.user.UserVO;
+import com.ctd.springboot.common.core.constant.security.SecurityConstants;
+import com.ctd.springboot.common.core.vo.user.UserVO;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

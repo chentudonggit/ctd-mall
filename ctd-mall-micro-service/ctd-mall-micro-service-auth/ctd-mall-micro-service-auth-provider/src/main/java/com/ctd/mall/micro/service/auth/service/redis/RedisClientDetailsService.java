@@ -1,8 +1,8 @@
 package com.ctd.mall.micro.service.auth.service.redis;
 
 import com.alibaba.fastjson.JSON;
-import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
-import com.ctd.mall.framework.redis.repository.RedisRepository;
+import com.ctd.springboot.common.core.constant.security.SecurityConstants;
+import com.ctd.springboot.redis.repository.RedisRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

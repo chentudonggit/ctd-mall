@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.user.manager.password;
 
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.micro.service.user.config.password.PasswordConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;

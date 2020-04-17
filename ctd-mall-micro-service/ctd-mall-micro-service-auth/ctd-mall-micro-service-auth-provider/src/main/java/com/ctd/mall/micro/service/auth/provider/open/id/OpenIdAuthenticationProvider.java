@@ -1,7 +1,7 @@
 package com.ctd.mall.micro.service.auth.provider.open.id;
 
-import com.ctd.mall.framework.auth.token.openid.OpenIdAuthenticationToken;
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.auth.token.openid.OpenIdAuthenticationToken;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;

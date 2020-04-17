@@ -12,9 +12,9 @@
     <artifactId>ctd-mall-micro-service-auth-provider</artifactId>
     <dependencies>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-auth-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-auth-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ctd.mall</groupId>
@@ -22,14 +22,14 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-redis-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-redis-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-web-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-web-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ctd.mall</groupId>
@@ -37,33 +37,33 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework.cloud-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-cloud-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-mysql-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.sprongboot</groupId>
+            <artifactId>ctd-springboot-mysql-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-data-jpa-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-data-jpa-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-swagger-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-swagger-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-backend-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-backend-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
     </dependencies>
 

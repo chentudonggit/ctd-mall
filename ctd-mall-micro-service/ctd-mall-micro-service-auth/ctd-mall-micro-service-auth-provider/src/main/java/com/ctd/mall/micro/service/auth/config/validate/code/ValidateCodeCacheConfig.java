@@ -1,8 +1,8 @@
 package com.ctd.mall.micro.service.auth.config.validate.code;
 
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
-import com.ctd.mall.framework.common.core.utils.mobile.MobileUtils;
-import com.ctd.mall.framework.redis.repository.RedisRepository;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.utils.mobile.MobileUtils;
+import com.ctd.springboot.redis.repository.RedisRepository;
 import com.ctd.mall.micro.service.common.enums.validate.code.cache.ValidateCodeCacheEnum;
 import com.ctd.mall.micro.service.auth.properties.validate.code.ValidateCodeCacheProperties;
 import org.apache.commons.lang3.StringUtils;

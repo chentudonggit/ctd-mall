@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.gateway.config.resoure;
 
-import com.ctd.mall.framework.auth.properties.security.SecurityProperties;
+import com.ctd.springboot.auth.properties.security.SecurityProperties;
 import com.ctd.mall.micro.service.gateway.handler.json.JsonAccessDeniedHandler;
 import com.ctd.mall.micro.service.gateway.handler.success.auth.Oauth2AuthSuccessHandler;
 import com.ctd.mall.micro.service.gateway.manager.CustomAuthenticationManager;

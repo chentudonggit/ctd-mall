@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.gateway.handler.json;
 
-import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
+import com.ctd.springboot.common.core.vo.response.ResponseVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;

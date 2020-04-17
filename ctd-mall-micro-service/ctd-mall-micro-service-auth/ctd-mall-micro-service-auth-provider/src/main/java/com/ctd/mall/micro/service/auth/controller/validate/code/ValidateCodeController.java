@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.auth.controller.validate.code;
 
-import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
+import com.ctd.springboot.common.core.vo.response.ResponseVO;
 import com.ctd.mall.micro.service.auth.service.validate.code.ValidateCodeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

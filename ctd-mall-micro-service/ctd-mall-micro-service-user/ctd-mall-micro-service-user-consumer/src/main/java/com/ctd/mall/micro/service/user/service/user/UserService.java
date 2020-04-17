@@ -1,7 +1,7 @@
 package com.ctd.mall.micro.service.user.service.user;
 
-import com.ctd.mall.framework.common.core.vo.page.PageVO;
-import com.ctd.mall.framework.common.core.vo.user.UserVO;
+import com.ctd.springboot.common.core.vo.page.PageVO;
+import com.ctd.springboot.common.core.vo.user.UserVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 

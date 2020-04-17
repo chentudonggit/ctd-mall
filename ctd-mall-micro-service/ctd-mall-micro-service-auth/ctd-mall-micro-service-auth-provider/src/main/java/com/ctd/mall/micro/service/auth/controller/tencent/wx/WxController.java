@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.auth.controller.tencent.wx;
 
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.micro.service.auth.config.tencent.wx.WxConfig;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,14 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>com.ctd.mall</groupId>
-        <artifactId>ctd-mall-framework-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>ctd-springboot-parent</artifactId>
+        <groupId>com.ctd.springboot</groupId>
+        <version>1.0.RELEASE</version>
+    </parent>
+    <groupId>com.ctd.mall</groupId>
     <artifactId>ctd-mall-micro-service</artifactId>
     <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
     <modules>
         <module>ctd-mall-micro-service-auth</module>
         <module>ctd-mall-micro-service-user</module>

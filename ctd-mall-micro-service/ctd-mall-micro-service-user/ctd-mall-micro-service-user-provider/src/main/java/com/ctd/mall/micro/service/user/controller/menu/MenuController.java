@@ -1,9 +1,9 @@
 package com.ctd.mall.micro.service.user.controller.menu;
 
-import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
-import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
-import com.ctd.mall.framework.common.core.vo.menu.MenuVO;
-import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
+import com.ctd.springboot.common.core.enums.method.MethodEnum;
+import com.ctd.springboot.common.core.utils.param.ParamUtils;
+import com.ctd.springboot.common.core.vo.menu.MenuVO;
+import com.ctd.springboot.common.core.vo.response.ResponseVO;
 import com.ctd.mall.micro.service.user.service.menu.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

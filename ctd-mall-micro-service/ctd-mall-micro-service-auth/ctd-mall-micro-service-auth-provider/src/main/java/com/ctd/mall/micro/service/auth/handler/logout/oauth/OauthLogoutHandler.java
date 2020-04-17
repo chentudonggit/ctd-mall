@@ -1,7 +1,7 @@
 package com.ctd.mall.micro.service.auth.handler.logout.oauth;
 
-import com.ctd.mall.framework.auth.utils.auth.AuthUtils;
-import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
+import com.ctd.springboot.auth.utils.auth.AuthUtils;
+import com.ctd.springboot.common.core.vo.response.ResponseVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.user.controller.binding.menurole;
 
-import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
+import com.ctd.springboot.common.core.vo.response.ResponseVO;
 import com.ctd.mall.micro.service.user.common.vo.binding.menurole.MenuRoleBindingVO;
 import com.ctd.mall.micro.service.user.service.menurole.MenuRoleBindingService;
 import io.swagger.annotations.Api;

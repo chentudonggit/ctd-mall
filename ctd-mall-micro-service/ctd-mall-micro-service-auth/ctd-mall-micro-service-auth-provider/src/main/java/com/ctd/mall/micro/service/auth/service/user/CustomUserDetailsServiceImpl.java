@@ -1,7 +1,7 @@
 package com.ctd.mall.micro.service.auth.service.user;
 
-import com.ctd.mall.framework.auth.vo.user.login.LoginUserVO;
-import com.ctd.mall.framework.common.core.bean.BeanHelper;
+import com.ctd.springboot.auth.vo.user.login.LoginUserVO;
+import com.ctd.springboot.common.core.bean.BeanHelper;
 import com.ctd.mall.micro.service.auth.config.validate.code.ValidateCodeCacheConfig;
 import com.ctd.mall.micro.service.auth.manager.token.TokenManager;
 import com.ctd.mall.micro.service.user.client.user.UserClient;

@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.auth.config.authorization;
 
-import com.ctd.mall.framework.auth.config.store.TokenStoreConfig;
+import com.ctd.springboot.auth.config.store.TokenStoreConfig;
 import com.ctd.mall.micro.service.auth.service.redis.RedisClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

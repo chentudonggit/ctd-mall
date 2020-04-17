@@ -1,7 +1,7 @@
 package com.ctd.mall.micro.service.user.domain.menu;
 
-import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
-import com.ctd.mall.framework.common.core.enums.status.StatusEnum;
+import com.ctd.springboot.common.core.enums.method.MethodEnum;
+import com.ctd.springboot.common.core.enums.status.StatusEnum;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;

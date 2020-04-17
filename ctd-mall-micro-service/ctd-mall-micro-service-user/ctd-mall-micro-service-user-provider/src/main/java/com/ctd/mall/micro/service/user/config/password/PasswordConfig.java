@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.user.config.password;
 
-import com.ctd.mall.framework.common.core.config.password.security.DefaultPasswordConfig;
+import com.ctd.springboot.common.core.config.password.security.DefaultPasswordConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**

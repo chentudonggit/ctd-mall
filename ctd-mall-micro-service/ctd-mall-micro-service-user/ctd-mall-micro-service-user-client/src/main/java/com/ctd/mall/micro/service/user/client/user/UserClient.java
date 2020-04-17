@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.user.client.user;
 
-import com.ctd.mall.framework.common.core.constants.eureka.server.type.EurekaServerType;
+import com.ctd.springboot.common.core.constants.eureka.server.type.EurekaServerType;
 import com.ctd.mall.micro.service.user.service.user.UserService;
 import org.springframework.cloud.openfeign.FeignClient;
 

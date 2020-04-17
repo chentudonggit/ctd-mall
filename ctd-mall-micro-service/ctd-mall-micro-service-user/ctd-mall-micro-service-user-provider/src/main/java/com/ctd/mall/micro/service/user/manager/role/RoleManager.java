@@ -1,11 +1,11 @@
 package com.ctd.mall.micro.service.user.manager.role;
 
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
-import com.ctd.mall.framework.common.core.vo.page.PageVO;
-import com.ctd.mall.framework.common.core.vo.role.RoleVO;
-import com.ctd.mall.framework.data.jpa.utils.JpaSqlUtils;
 import com.ctd.mall.micro.service.user.domain.role.Role;
 import com.ctd.mall.micro.service.user.repository.role.RoleRepository;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.vo.page.PageVO;
+import com.ctd.springboot.common.core.vo.role.RoleVO;
+import com.ctd.springboot.data.jpa.utils.JpaSqlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;

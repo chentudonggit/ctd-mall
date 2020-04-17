@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.user.service.binding.menurole;
 
-import com.ctd.mall.framework.common.core.bean.BeanHelper;
+import com.ctd.springboot.common.core.bean.BeanHelper;
 import com.ctd.mall.micro.service.user.common.vo.binding.menurole.MenuRoleBindingVO;
 import com.ctd.mall.micro.service.user.manager.binding.menurole.MenuRoleBindingManager;
 import com.ctd.mall.micro.service.user.service.menurole.MenuRoleBindingService;

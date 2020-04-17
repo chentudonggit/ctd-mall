@@ -1,8 +1,8 @@
 package com.ctd.mall.micro.service.user.service.user;
 
-import com.ctd.mall.framework.common.core.bean.BeanHelper;
-import com.ctd.mall.framework.common.core.vo.page.PageVO;
-import com.ctd.mall.framework.common.core.vo.user.UserVO;
+import com.ctd.springboot.common.core.bean.BeanHelper;
+import com.ctd.springboot.common.core.vo.page.PageVO;
+import com.ctd.springboot.common.core.vo.user.UserVO;
 import com.ctd.mall.micro.service.user.domain.user.User;
 import com.ctd.mall.micro.service.user.manager.user.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;

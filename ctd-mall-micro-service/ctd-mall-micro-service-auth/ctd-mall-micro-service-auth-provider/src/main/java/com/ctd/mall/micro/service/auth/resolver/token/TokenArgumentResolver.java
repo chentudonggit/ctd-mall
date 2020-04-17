@@ -1,9 +1,9 @@
 package com.ctd.mall.micro.service.auth.resolver.token;
 
-import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
-import com.ctd.mall.framework.common.core.annotation.login.LoginUser;
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
-import com.ctd.mall.framework.common.core.vo.user.UserVO;
+import com.ctd.springboot.common.core.constant.security.SecurityConstants;
+import com.ctd.springboot.common.core.annotation.login.LoginUser;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.vo.user.UserVO;
 import com.ctd.mall.micro.service.user.client.user.UserClient;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;

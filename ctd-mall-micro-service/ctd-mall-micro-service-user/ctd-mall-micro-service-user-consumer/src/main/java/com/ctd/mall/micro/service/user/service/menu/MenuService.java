@@ -1,8 +1,8 @@
 package com.ctd.mall.micro.service.user.service.menu;
 
-import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
-import com.ctd.mall.framework.common.core.vo.menu.MenuVO;
-import com.ctd.mall.framework.common.core.vo.page.PageVO;
+import com.ctd.springboot.common.core.enums.method.MethodEnum;
+import com.ctd.springboot.common.core.vo.menu.MenuVO;
+import com.ctd.springboot.common.core.vo.page.PageVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 

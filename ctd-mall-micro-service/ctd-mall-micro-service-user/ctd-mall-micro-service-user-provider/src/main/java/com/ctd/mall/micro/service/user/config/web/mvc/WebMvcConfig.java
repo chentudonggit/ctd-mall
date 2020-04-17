@@ -1,10 +1,10 @@
 package com.ctd.mall.micro.service.user.config.web.mvc;
 
-import com.ctd.framework.web.converter.jackson.JacksonHttpMessageConverter;
-import com.ctd.mall.framework.common.core.resolver.client.ClientArgumentResolver;
 import com.ctd.mall.micro.service.user.resolver.token.TokenArgumentResolver;
 import com.ctd.mall.micro.service.user.service.user.UserService;
-import com.mall.framework.swagger.config.SwaggerWebMvcConfig;
+import com.ctd.springboot.common.core.resolver.client.ClientArgumentResolver;
+import com.ctd.springboot.swagger.config.SwaggerWebMvcConfig;
+import com.ctd.springboot.web.converter.jackson.JacksonHttpMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;

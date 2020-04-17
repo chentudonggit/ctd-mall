@@ -1,7 +1,7 @@
 package com.ctd.mall.micro.service.user.common.vo.binding.menurole;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.ctd.mall.framework.common.core.enums.status.StatusEnum;
+import com.ctd.springboot.common.core.enums.status.StatusEnum;
 
 import java.io.Serializable;
 

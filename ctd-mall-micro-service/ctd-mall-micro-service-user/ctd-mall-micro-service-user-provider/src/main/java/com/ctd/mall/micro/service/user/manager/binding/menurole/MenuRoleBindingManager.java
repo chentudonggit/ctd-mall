@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.user.manager.binding.menurole;
 
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
 import com.ctd.mall.micro.service.user.domain.binding.menurole.MenuRoleBinding;
 import com.ctd.mall.micro.service.user.manager.menu.MenuManager;
 import com.ctd.mall.micro.service.user.manager.role.RoleManager;

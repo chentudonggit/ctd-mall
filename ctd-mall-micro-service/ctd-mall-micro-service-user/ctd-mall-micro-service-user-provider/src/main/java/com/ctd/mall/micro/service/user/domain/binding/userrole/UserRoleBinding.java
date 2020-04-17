@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.user.domain.binding.userrole;
 
-import com.ctd.mall.framework.common.core.enums.status.StatusEnum;
+import com.ctd.springboot.common.core.enums.status.StatusEnum;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;

@@ -1,10 +1,10 @@
 package com.ctd.mall.micro.service.user.controller.user;
 
-import com.ctd.mall.framework.common.core.annotation.login.LoginUser;
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
-import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
-import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
-import com.ctd.mall.framework.common.core.vo.user.UserVO;
+import com.ctd.springboot.common.core.annotation.login.LoginUser;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.utils.param.ParamUtils;
+import com.ctd.springboot.common.core.vo.response.ResponseVO;
+import com.ctd.springboot.common.core.vo.user.UserVO;
 import com.ctd.mall.micro.service.user.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

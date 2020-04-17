@@ -1,8 +1,8 @@
 package com.ctd.mall.micro.service.user.controller.role;
 
-import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
-import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
-import com.ctd.mall.framework.common.core.vo.role.RoleVO;
+import com.ctd.springboot.common.core.utils.param.ParamUtils;
+import com.ctd.springboot.common.core.vo.response.ResponseVO;
+import com.ctd.springboot.common.core.vo.role.RoleVO;
 import com.ctd.mall.micro.service.user.service.role.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

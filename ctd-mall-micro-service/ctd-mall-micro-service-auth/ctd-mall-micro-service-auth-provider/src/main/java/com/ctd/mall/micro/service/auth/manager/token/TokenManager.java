@@ -1,12 +1,12 @@
 package com.ctd.mall.micro.service.auth.manager.token;
 
-import com.ctd.mall.framework.auth.token.mobile.MobileAuthenticationToken;
-import com.ctd.mall.framework.auth.utils.auth.AuthUtils;
-import com.ctd.mall.framework.auth.vo.client.ClientInfoVO;
-import com.ctd.mall.framework.common.core.constant.security.SecurityConstants;
-import com.ctd.mall.framework.common.core.holder.context.TenantContextHolder;
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
-import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
+import com.ctd.springboot.auth.token.mobile.MobileAuthenticationToken;
+import com.ctd.springboot.auth.utils.auth.AuthUtils;
+import com.ctd.springboot.auth.vo.client.ClientInfoVO;
+import com.ctd.springboot.common.core.constant.security.SecurityConstants;
+import com.ctd.springboot.common.core.holder.context.TenantContextHolder;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.vo.response.ResponseVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;

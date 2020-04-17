@@ -12,9 +12,9 @@
     <artifactId>ctd-mall-micro-service-user-common</artifactId>
     <dependencies>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-common-core</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-common-core</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
     </dependencies>
 </project>

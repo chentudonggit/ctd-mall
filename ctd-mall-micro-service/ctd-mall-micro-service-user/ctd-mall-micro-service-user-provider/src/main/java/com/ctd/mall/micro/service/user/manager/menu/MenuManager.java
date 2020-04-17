@@ -1,12 +1,12 @@
 package com.ctd.mall.micro.service.user.manager.menu;
 
-import com.ctd.mall.framework.common.core.bean.BeanHelper;
-import com.ctd.mall.framework.common.core.enums.method.MethodEnum;
-import com.ctd.mall.framework.common.core.utils.asserts.AssertUtils;
-import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
-import com.ctd.mall.framework.common.core.vo.menu.MenuVO;
-import com.ctd.mall.framework.common.core.vo.page.PageVO;
-import com.ctd.mall.framework.data.jpa.utils.JpaSqlUtils;
+import com.ctd.springboot.common.core.bean.BeanHelper;
+import com.ctd.springboot.common.core.enums.method.MethodEnum;
+import com.ctd.springboot.common.core.utils.asserts.AssertUtils;
+import com.ctd.springboot.common.core.utils.param.ParamUtils;
+import com.ctd.springboot.common.core.vo.menu.MenuVO;
+import com.ctd.springboot.common.core.vo.page.PageVO;
+import com.ctd.springboot.data.jpa.utils.JpaSqlUtils;
 import com.ctd.mall.micro.service.user.domain.menu.Menu;
 import com.ctd.mall.micro.service.user.repository.menu.MenuRepository;
 import org.apache.commons.lang3.StringUtils;

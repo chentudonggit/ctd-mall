@@ -1,6 +1,6 @@
 package com.ctd.mall.micro.service.auth.config.client;
 
-import com.ctd.mall.framework.redis.repository.RedisRepository;
+import com.ctd.springboot.redis.repository.RedisRepository;
 import com.ctd.mall.micro.service.auth.service.redis.RedisClientDetailsService;
 import com.ctd.mall.micro.service.auth.service.redis.authorization.RedisAuthorizationCodeServices;
 import org.springframework.beans.factory.annotation.Autowired;

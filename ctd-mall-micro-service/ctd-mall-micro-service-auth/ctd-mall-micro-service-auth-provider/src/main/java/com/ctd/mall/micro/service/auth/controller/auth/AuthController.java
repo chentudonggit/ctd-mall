@@ -1,9 +1,9 @@
 package com.ctd.mall.micro.service.auth.controller.auth;
 
-import com.ctd.mall.framework.common.core.utils.param.ParamUtils;
-import com.ctd.mall.framework.common.core.vo.response.ResponseVO;
-import com.ctd.mall.framework.common.core.vo.result.ResultVO;
-import com.ctd.mall.framework.common.core.vo.user.UserVO;
+import com.ctd.springboot.common.core.utils.param.ParamUtils;
+import com.ctd.springboot.common.core.vo.response.ResponseVO;
+import com.ctd.springboot.common.core.vo.result.ResultVO;
+import com.ctd.springboot.common.core.vo.user.UserVO;
 import com.ctd.mall.micro.service.auth.manager.token.TokenManager;
 import com.ctd.mall.micro.service.auth.service.user.CustomSocialUserDetailsService;
 import com.ctd.mall.micro.service.auth.service.user.CustomUserDetailsService;

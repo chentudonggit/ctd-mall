@@ -13,24 +13,24 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework.cloud-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-cloud-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-web-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-web-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-mysql-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-mysql-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-data-jpa-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-data-jpa-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ctd.mall</groupId>
@@ -42,9 +42,9 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.ctd.mall</groupId>
-            <artifactId>ctd-mall-framework-swagger-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.ctd.springboot</groupId>
+            <artifactId>ctd-springboot-swagger-starter</artifactId>
+            <version>${ctd-springboot.version}</version>
         </dependency>
     </dependencies>
 
