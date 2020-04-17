@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.ctd.mall.framework.auth.config.security.properties.SecurityPropertiesConfig,\
-com.ctd.mall.framework.auth.config.store.TokenStoreConfig
