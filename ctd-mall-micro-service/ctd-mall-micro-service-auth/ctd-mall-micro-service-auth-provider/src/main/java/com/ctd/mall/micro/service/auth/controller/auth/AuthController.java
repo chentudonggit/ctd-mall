@@ -60,7 +60,7 @@ public class AuthController
      * @return ResponseVO
      */
     @ApiOperation("openId 获取用户详情")
-    @RequestMapping("findByOpenId")
+    @GetMapping("findByOpenId")
     public ResponseVO findByOpenId(String openId)
     {
         return ResponseVO.data(customSocialUserDetailsService.loadUserByUserId(openId));

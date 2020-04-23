@@ -66,8 +66,8 @@ tencent:
 eureka:
   instance:
     hostname: 192.168.1.107 #172.16.146.183
-    leaseRenewalIntervalInSeconds: 5
-    leaseExpirationDurationInSeconds: 10
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 20
     preferIpAddress: true
   client:
     serviceUrl:

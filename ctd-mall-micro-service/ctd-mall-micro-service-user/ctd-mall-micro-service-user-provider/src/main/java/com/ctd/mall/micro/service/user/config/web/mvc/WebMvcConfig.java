@@ -24,13 +24,15 @@ public class WebMvcConfig extends SwaggerWebMvcConfig
 {
     @Autowired
     private UserService userService;
+
     /**
      * Token参数解析
      *
      * @param argumentResolvers 解析类
      */
     @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers)
+    {
         //注入用户信息
         argumentResolvers.add(new TokenArgumentResolver(userService));
         //注入应用信息
@@ -38,7 +40,8 @@ public class WebMvcConfig extends SwaggerWebMvcConfig
     }
 
     @Override
-    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters)
+    {
         super.configureMessageConverters(converters);
         converters.add(new JacksonHttpMessageConverter());
     }

@@ -1,8 +1,8 @@
 package com.ctd.mall.micro.service.auth.config.security;
 
+import com.ctd.mall.micro.service.auth.config.authorization.mobile.MobileAuthenticationSecurityConfig;
 import com.ctd.springboot.common.core.config.password.security.DefaultPasswordConfig;
 import com.ctd.springboot.common.core.constant.security.SecurityConstants;
-import com.ctd.mall.micro.service.auth.config.authorization.mobile.MobileAuthenticationSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
